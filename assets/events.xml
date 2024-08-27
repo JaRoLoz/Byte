@@ -1,0 +1,9 @@
+<events xmlns="https://www.w3schools.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.w3schools.com events.xsd">
+    <eventName key="Client.Player.SetPlayerField">Byte:client:Player:SetPlayerField</eventName>
+    <eventName key="Client.Player.OnPlayerReady">Byte:client:Player:OnPlayerReady</eventName>
+    <eventName key="Client.Inventory.SetInventory">Byte:client:Inventory:SetInventory</eventName>
+    <eventName key="Client.RPC.Callback">Byte:client:RPC:Callback</eventName>
+    <eventName key="Server.RPC.Call">Byte:server:RPC:Call</eventName>
+</events>

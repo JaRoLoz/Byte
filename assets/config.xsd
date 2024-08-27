@@ -1,0 +1,53 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+    targetNamespace="https://www.w3schools.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="global">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:language" name="locale" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="core">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="inventory">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:byte" name="inventorySlots" />
+                                        <xs:element type="xs:byte" name="maxPlayerWeight" />
+                                        <xs:element name="items">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="item" maxOccurs="unbounded"
+                                                        minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string"
+                                                                    name="name" />
+                                                                <xs:element type="xs:string"
+                                                                    name="label" />
+                                                                <xs:element type="xs:string"
+                                                                    name="description" />
+                                                                <xs:element type="xs:byte"
+                                                                    name="weight" />
+                                                                <xs:element type="xs:boolean"
+                                                                    name="unique" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

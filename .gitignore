@@ -1,0 +1,7 @@
+node_modules/
+build/
+client/shared
+server/shared
+package-lock.json
+bun.lockb
+pnpm-lock.yaml

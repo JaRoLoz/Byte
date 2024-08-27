@@ -1,0 +1,27 @@
+{
+    "scripts": {
+        "setup": "symlink-dir ./shared ./client/shared && symlink-dir ./shared ./server/shared",
+        "clean": "rimraf ./build",
+        "format:client": "prettier --write \"./client\"",
+        "format:server": "prettier --write \"./server\"",
+        "format:shared": "prettier --write \"./shared\"",
+        "build:client": "tstl-tables --project ./client/tsconfig.json",
+        "build:server": "tstl-tables --project ./server/tsconfig.json",
+        "prebuild:client": "npm run format:client",
+        "prebuild:server": "npm run format:server",
+        "types:client": "dets ./build/client/index.d.ts --name byte-client --out ./build/client/byte-client.d.ts",
+        "types:server": "dets ./build/server/index.d.ts --name byte-server --out ./build/server/byte-server.d.ts",
+        "update-types": "types-replacer ./build/client/byte-client.d.ts ./build/server/byte-server.d.ts ./shared/native_defs.d.ts"
+    },
+    "devDependencies": {
+        "@typescript-to-lua/language-extensions": "^1.19.0",
+        "dets": "^0.16.0",
+        "mkdirp": "3.0.1",
+        "move-file-cli": "3.0.0",
+        "prettier": "3.2.5",
+        "rimraf": "5.0.5",
+        "symlink-dir": "5.2.1",
+        "typescript": "5.4.3",
+        "typescript-to-lua": "1.25.1"
+    }
+}
