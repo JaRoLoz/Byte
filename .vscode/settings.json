@@ -18,6 +18,7 @@
         "shared/native_defs.d.ts": true,
         "**/tsconfig.json": true,
         "lua": true,
+        "LICENSE": true,
         "build": true
     },
     "Lua.workspace.ignoreDir": [
