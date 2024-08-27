@@ -12,7 +12,7 @@ const testPlayer: Command = {
     command: "testPlayer",
     privilege: "NONE",
     commandFn: src => {
-        const toSource = Number(src);
+        const toSource = Number(1);
         const configController = ConfigController.getInstance();
         const items = configController.getItems();
 
