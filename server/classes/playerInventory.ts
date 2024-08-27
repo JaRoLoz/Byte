@@ -34,6 +34,7 @@ export class PlayerInventory extends Inventory {
     private emitChanges = () =>
         TriggerClientEvent(eventNames.get("Client.Inventory.SetInventory"), this.src, this.toObject());
 
+    /** @noSelf **/
     public static fromObject = (src: number, data: SlotData[], size: number, maxWeight: number) => {
         const configController = ConfigController.getInstance();
         const items = configController.getItems();
