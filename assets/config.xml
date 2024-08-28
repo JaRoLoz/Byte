@@ -10,6 +10,13 @@
             <maxPlayerWeight>100</maxPlayerWeight>
             <items>
                 <item>
+                    <name>weapon_pistol</name>
+                    <label>Pistola</label>
+                    <description>Pistola pium pium</description>
+                    <weight>10</weight>
+                    <unique>true</unique>
+                </item>
+                <item>
                     <name>tosti</name>
                     <label>Tostada</label>
                     <description>Tostada de pan</description>
