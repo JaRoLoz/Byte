@@ -43,26 +43,30 @@ export abstract class Inventory implements IObjectifiable<InventoryData> {
     protected _addItem = (item: string, amount: number = 1, info: SlotInfo | undefined = undefined) => {
         const configController = ConfigController.getInstance();
         const items = configController.getItems();
-        if (this.getTotalWeight() + items[item].getWeight() * amount > this.maxWeight) {
+        const itemClass = items[item];
+
+        if (this.getTotalWeight() + itemClass.getWeight() * amount > this.maxWeight) {
             //max weight reached
             return false;
         }
-        const slot = this.getSlotWithItem(item);
 
-        if (slot !== -1) {
-            this.slots[slot].addAmount(amount);
+        if (itemClass.getUnique()) {
+            const freeSlot = this.getEmptySlot();
+            if (freeSlot === -1) return false;
+            this.slots[freeSlot].setItem(itemClass, amount);
+            this.slots[freeSlot].setInfo(info);
         } else {
-            const emptySlot = this.getEmptySlot();
-
-            if (emptySlot !== -1) {
-                const itemClass = items[item];
-                this.slots[emptySlot].setItem(itemClass, amount);
-                if (info !== undefined) this.slots[emptySlot].setInfo(info);
+            const sameSlot = this.getSlotWithItem(item);
+            if (sameSlot === -1) {
+                const freeSlot = this.getEmptySlot();
+                if (freeSlot === -1) return false;
+                this.slots[freeSlot].setItem(itemClass, amount);
+                this.slots[freeSlot].setInfo(info);
             } else {
-                // no free slots
-                return false;
+                this.slots[sameSlot].addAmount(amount);
             }
         }
+
         return true;
     };
 

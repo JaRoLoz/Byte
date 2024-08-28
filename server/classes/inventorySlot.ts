@@ -48,7 +48,7 @@ export class InventorySlot implements IObjectifiable<SlotData> {
         }
     };
 
-    public setInfo = (info: SlotInfo) => {
+    public setInfo = (info?: SlotInfo) => {
         this.info = info;
     };
 
