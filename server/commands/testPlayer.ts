@@ -12,7 +12,7 @@ const testPlayer: Command = {
     command: "testPlayer",
     privilege: "NONE",
     commandFn: src => {
-        const toSource = Number(1);
+        const toSource = 1;
         const configController = ConfigController.getInstance();
         const items = configController.getItems();
 
@@ -46,6 +46,9 @@ const testPlayer: Command = {
         const inventory = player.getInventory();
         inventory.addItem(items.tosti.getName(), 13);
         inventory.addItem(items.whisky.getName(), 37);
+        inventory.addItem(items.weapon_pistol.getName(), 1);
+        inventory.addItem(items.weapon_pistol.getName(), 1);
+        inventory.addItem(items.weapon_pistol.getName(), 1);
 
         player.save();
         logger.debug(`New player saved with UUID -> ${player.getUuid()}`);
