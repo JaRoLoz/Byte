@@ -7,5 +7,8 @@
         <entry key="Logger.Trace.Error">ERROR</entry>
         <entry key="Logger.Trace.Debug">DEBUG</entry>
         <entry key="Server.Console.ServerStarted">Byte server initialized!</entry>
+        <entry key="Server.Deferrals.Deferring">Deferring connection...</entry>
+        <entry key="Server.Deferrals.Dicord.Rejected">You need to link your Discord account to FiveM to access the server.</entry>
+        <entry key="Server.Deferrals.Steam.Rejected">You need to close Steam to access the server.</entry>
     </translation>
 </translations>

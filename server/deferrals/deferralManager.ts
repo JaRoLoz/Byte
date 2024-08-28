@@ -1,4 +1,5 @@
 import { ServerAccessController } from "../controllers/serverAccessController";
+import { getTranslator } from "../shared/classes";
 import { Logger } from "../utils/logger";
 import discordDeferral from "./discordDeferral";
 import steamDeferral from "./steamDeferral";
@@ -7,6 +8,7 @@ type KickFunction = (reason: string) => void;
 
 export type Deferral = (src: number, playerName: string, setKickReason: KickFunction, deferrals: any) => boolean;
 
+const translator = getTranslator();
 const logger = Logger.construct("DeferralManager");
 
 /** @noSelf **/
@@ -34,7 +36,7 @@ export class DeferralManager {
         Wait(0);
 
         logger.debug(`Deferring player: ${playerName} (${src})`);
-        deferrals.update(`Deferring connection...`);
+        deferrals.update(translator.get("Server.Deferrals.Deferring"));
 
         for (const [deferralName, deferral] of Object.entries(DeferralManager.deferrals)) {
             const result = deferral(src, playerName, setKickReason, deferrals);

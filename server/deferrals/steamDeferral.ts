@@ -1,6 +1,9 @@
 import { User } from "../classes/user";
+import { getTranslator } from "../shared/classes";
 import { EnvManager } from "../utils/env";
 import { Deferral } from "./deferralManager";
+
+const translator = getTranslator();
 
 const steamDeferral: Deferral = (src, playerName, setKickReason, deferrals) => {
     if (EnvManager.getDebug() || EnvManager.getSteamWebApiKey() === "none") return true;
@@ -9,7 +12,7 @@ const steamDeferral: Deferral = (src, playerName, setKickReason, deferrals) => {
 
     if (steam === undefined) return true;
 
-    deferrals.done("No puedes acceder al servidor con steam abierto.");
+    deferrals.done(translator.get("Server.Deferrals.Steam.Rejected"));
     return false;
 };
 
