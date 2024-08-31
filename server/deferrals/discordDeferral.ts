@@ -9,7 +9,7 @@ const discordDeferral: Deferral = (src, playerName, setKickReason, deferrals) =>
     const discord = user.getIdentifier("discord");
 
     if (!discord) {
-        deferrals.done(translator.get("Server.Deferrals.Dicord.Rejected"));
+        deferrals.done(translator.get("Server.Deferrals.Discord.Rejected"));
         return false;
     }
 
