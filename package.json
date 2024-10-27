@@ -15,7 +15,7 @@
     },
     "devDependencies": {
         "@typescript-to-lua/language-extensions": "^1.19.0",
-        "dets": "^0.16.0",
+        "dets": "0.16.2",
         "mkdirp": "3.0.1",
         "move-file-cli": "3.0.0",
         "prettier": "3.2.5",
