@@ -9,6 +9,7 @@ import { PlayerInventory } from "../classes/playerInventory";
 import { RPCController } from "../controllers/rpcController";
 import { Logger } from "../utils/logger";
 import { EnvManager } from "../utils/env";
+import { Ped } from "../classes/ped";
 
 export type ByteExport = {
     classes: {
@@ -16,6 +17,7 @@ export type ByteExport = {
         Inventory: typeof Inventory;
         PlayerInventory: typeof PlayerInventory;
         Player: typeof Player;
+        Ped: typeof Ped;
     };
     controllers: {
         RPCController: typeof RPCController;
@@ -37,7 +39,8 @@ const exporterFunction = (): ByteExport => ({
         InventorySlot,
         Inventory,
         PlayerInventory,
-        Player
+        Player,
+        Ped
     },
     controllers: {
         RPCController
