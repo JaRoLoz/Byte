@@ -19,7 +19,8 @@
         "**/tsconfig.json": true,
         "lua": true,
         "LICENSE": true,
-        "build": true
+        "build": true,
+        "**/.ignored_*": true
     },
     "Lua.workspace.ignoreDir": [
         ".vscode",
