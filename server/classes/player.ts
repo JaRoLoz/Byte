@@ -7,7 +7,7 @@ import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
 
-const logger = Logger.construct("Player");
+const logger = new Logger("Player");
 const eventNames = getEventNames();
 
 export class Player extends User implements IObjectifiable<DBPlayerInfo> {

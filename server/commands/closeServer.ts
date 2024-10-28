@@ -2,7 +2,7 @@ import { Command } from "../controllers/commandController";
 import { ServerAccessController } from "../controllers/serverAccessController";
 import { Logger } from "../utils/logger";
 
-const logger = Logger.construct("closeServer");
+const logger = new Logger("closeServer");
 
 const closeServer: Command = {
     command: "closeServer",

@@ -2,7 +2,7 @@ import { Command } from "../controllers/commandController";
 import { Privilege, PrivilegeController } from "../controllers/privilegeController";
 import { Logger } from "../utils/logger";
 
-const logger = Logger.construct("addPrivilege");
+const logger = new Logger("addPrivilege");
 
 const addPrivilege: Command = {
     command: "addPrivilege",

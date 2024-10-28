@@ -9,7 +9,7 @@ export enum Privilege {
     GOD = 5
 }
 
-const logger = Logger.construct("PrivilegeController");
+const logger = new Logger("PrivilegeController");
 
 /**
  * This class is a singleton that manages the privilege levels of users.

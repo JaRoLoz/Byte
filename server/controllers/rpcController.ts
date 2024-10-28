@@ -2,7 +2,7 @@ import { getEventNames } from "../shared/classes/eventNameController";
 
 const eventNames = getEventNames();
 
-export type CallbackFn = (src: number, cb: (...args: any[]) => void, ...args: any[]) => any;
+export type CallbackFn = (src: number, cb: (args: any) => void, args: any) => any;
 
 export class RPCController {
     /** @noSelf **/
@@ -10,17 +10,17 @@ export class RPCController {
     private callbacks: Record<string, CallbackFn> = {};
 
     private constructor() {
-        RegisterNetEvent(eventNames.get("Server.RPC.Call"), (procedure: string, ...args: any[]) => {
+        RegisterNetEvent(eventNames.get("Server.RPC.Call"), (procedure: string, args: any) => {
             const src = source;
             if (!this.callbacks[procedure]) return;
 
             const procedureCallback = this.callbacks[procedure];
             procedureCallback(
                 src,
-                (...retVals: any[]) => {
-                    TriggerClientEvent(eventNames.get("Client.RPC.Callback"), src, procedure, ...retVals);
+                (retVal: any) => {
+                    TriggerClientEvent(eventNames.get("Client.RPC.Callback"), src, procedure, retVal);
                 },
-                ...args
+                args
             );
         });
     }

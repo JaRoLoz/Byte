@@ -1,6 +1,6 @@
 import * as consts from "../shared/consts";
 import * as interfaces from "../shared/interfaces";
-import * as classes from "../shared/classes";
+import { ConfigController, Item, Translator, XMLSearchNode } from "../shared/classes";
 import * as utils from "../shared/utils";
 import { Inventory } from "../classes/inventory";
 import { InventorySlot } from "../classes/inventorySlot";
@@ -14,14 +14,16 @@ import { ServerAccessController } from "../controllers/serverAccessController";
 import { DeferralManager } from "../deferrals/deferralManager";
 import { EnvManager } from "../utils/env";
 import { Logger } from "../utils/logger";
+import { ExportedClass } from "../shared/classes/exported";
+import { RPCController } from "../controllers/rpcController";
 
 export type ByteExport = {
     classes: {
-        InventorySlot: typeof InventorySlot;
+        InventorySlot: ExportedClass<typeof InventorySlot>;
         Inventory: typeof Inventory;
-        PlayerInventory: typeof PlayerInventory;
-        Player: typeof Player;
-        User: typeof User;
+        PlayerInventory: ExportedClass<typeof PlayerInventory>;
+        Player: ExportedClass<typeof Player>;
+        User: ExportedClass<typeof User>;
     };
     controllers: {
         CommandController: typeof CommandController;
@@ -29,14 +31,20 @@ export type ByteExport = {
         PrivilegeController: typeof PrivilegeController;
         ServerAccessController: typeof ServerAccessController;
         DeferralManager: typeof DeferralManager;
+        RPCController: typeof RPCController;
     };
     utils: {
         EnvManager: typeof EnvManager;
-        Logger: typeof Logger;
+        Logger: ExportedClass<typeof Logger>;
     };
     shared: {
         interfaces: typeof interfaces;
-        classes: typeof classes;
+        classes: {
+            ConfigController: typeof ConfigController;
+            Item: ExportedClass<typeof Item>;
+            Translator: ExportedClass<typeof Translator>;
+            XMLSearchNode: ExportedClass<typeof XMLSearchNode>;
+        };
         utils: typeof utils;
         consts: typeof consts;
     };
@@ -44,28 +52,34 @@ export type ByteExport = {
 
 const exporterFunction = (): ByteExport => ({
     classes: {
-        InventorySlot,
-        Inventory,
-        PlayerInventory,
-        Player,
-        User
+        InventorySlot: new ExportedClass(InventorySlot),
+        Inventory, // abstract class, cant be instantiated
+        PlayerInventory: new ExportedClass(PlayerInventory),
+        Player: new ExportedClass(Player),
+        User: new ExportedClass(User)
     },
     controllers: {
         CommandController,
         PlayerController,
         PrivilegeController,
         ServerAccessController,
-        DeferralManager
+        DeferralManager,
+        RPCController
     },
     utils: {
         EnvManager,
-        Logger
+        Logger: new ExportedClass(Logger)
     },
     shared: {
         interfaces,
-        classes,
         utils,
-        consts
+        consts,
+        classes: {
+            ConfigController: ConfigController,
+            Item: new ExportedClass(Item),
+            Translator: new ExportedClass(Translator),
+            XMLSearchNode: new ExportedClass(XMLSearchNode)
+        }
     }
 });
 

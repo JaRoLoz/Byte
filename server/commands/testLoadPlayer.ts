@@ -2,7 +2,7 @@ import { Command } from "../controllers/commandController";
 import { Logger } from "../utils/logger";
 import { PlayerController } from "../controllers/playerController";
 
-const logger = Logger.construct("testLoadPlayer");
+const logger = new Logger("testLoadPlayer");
 
 const testLoadPlayer: Command = {
     command: "testLoadPlayer",

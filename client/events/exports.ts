@@ -1,6 +1,6 @@
 import * as consts from "../shared/consts";
 import * as interfaces from "../shared/interfaces";
-import * as classes from "../shared/classes";
+import { ConfigController, Item, Translator, XMLSearchNode } from "../shared/classes";
 import * as utils from "../shared/utils";
 import { Inventory } from "../classes/inventory";
 import { InventorySlot } from "../classes/inventorySlot";
@@ -10,50 +10,61 @@ import { RPCController } from "../controllers/rpcController";
 import { Logger } from "../utils/logger";
 import { EnvManager } from "../utils/env";
 import { Ped } from "../classes/ped";
+import { ExportedClass } from "../shared/classes/exported";
 
 export type ByteExport = {
     classes: {
-        InventorySlot: typeof InventorySlot;
+        InventorySlot: ExportedClass<typeof InventorySlot>;
         Inventory: typeof Inventory;
-        PlayerInventory: typeof PlayerInventory;
-        Player: typeof Player;
-        Ped: typeof Ped;
+        PlayerInventory: ExportedClass<typeof PlayerInventory>;
+        Player: ExportedClass<typeof Player>;
+        Ped: ExportedClass<typeof Ped>;
     };
     controllers: {
         RPCController: typeof RPCController;
     };
     utils: {
-        Logger: typeof Logger;
+        Logger: ExportedClass<typeof Logger>;
         EnvManager: typeof EnvManager;
     };
     shared: {
         interfaces: typeof interfaces;
-        classes: typeof classes;
         utils: typeof utils;
         consts: typeof consts;
+        classes: {
+            ConfigController: typeof ConfigController;
+            Item: ExportedClass<typeof Item>;
+            Translator: ExportedClass<typeof Translator>;
+            XMLSearchNode: ExportedClass<typeof XMLSearchNode>;
+        };
     };
 };
 
 const exporterFunction = (): ByteExport => ({
     classes: {
-        InventorySlot,
-        Inventory,
-        PlayerInventory,
-        Player,
-        Ped
+        InventorySlot: new ExportedClass(InventorySlot),
+        Inventory, // abstract class, cant be instantiated
+        PlayerInventory: new ExportedClass(PlayerInventory),
+        Player: new ExportedClass(Player),
+        Ped: new ExportedClass(Ped)
     },
     controllers: {
         RPCController
     },
     utils: {
-        Logger,
+        Logger: new ExportedClass(Logger),
         EnvManager
     },
     shared: {
         interfaces,
-        classes,
         utils,
-        consts
+        consts,
+        classes: {
+            ConfigController,
+            Item: new ExportedClass(Item),
+            Translator: new ExportedClass(Translator),
+            XMLSearchNode: new ExportedClass(XMLSearchNode)
+        }
     }
 });
 

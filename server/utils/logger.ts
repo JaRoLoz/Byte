@@ -40,7 +40,4 @@ export class Logger {
         if (!EnvManager.getDebug()) return;
         this.log({ color: 5, level: translator.get("Logger.Trace.Debug") }, ...args);
     };
-
-    /** @noSelf **/
-    public static construct = (module?: string) => new Logger(module);
 }

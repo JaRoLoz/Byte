@@ -6,7 +6,7 @@ import { PlayerGender } from "../shared/types/player";
 import { ConfigController } from "../shared/classes";
 import { PlayerInventory } from "../classes/playerInventory";
 
-const logger = Logger.construct("testPlayer");
+const logger = new Logger("testPlayer");
 
 const testPlayer: Command = {
     command: "testPlayer",

@@ -10,9 +10,6 @@ import {
 import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../shared/consts";
 
 export class Ped {
-    /** @noSelf **/
-    public static construct = (source: number) => new Ped(source);
-
     private source: number;
 
     constructor(source: number) {

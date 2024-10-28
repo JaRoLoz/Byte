@@ -15,7 +15,7 @@ export type DBPlayerInfo = {
     inventory: InventoryData;
 };
 
-const logger = Logger.construct("PlayerController");
+const logger = new Logger("PlayerController");
 
 export class PlayerController {
     /** @noSelf **/

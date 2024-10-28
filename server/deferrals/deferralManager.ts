@@ -9,7 +9,7 @@ type KickFunction = (reason: string) => void;
 export type Deferral = (src: number, playerName: string, setKickReason: KickFunction, deferrals: any) => boolean;
 
 const translator = getTranslator();
-const logger = Logger.construct("DeferralManager");
+const logger = new Logger("DeferralManager");
 
 /** @noSelf **/
 export class DeferralManager {
