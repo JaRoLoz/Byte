@@ -1,9 +1,11 @@
+import { Logger } from "../../utils/logger";
 import { XMLSearchNode } from "./xml";
 
 type EventName = string;
 
 export class EventNameController {
     private events: Record<string, EventName> = {};
+    private logger = new Logger("EventNameController");
 
     constructor(xmlNode: XMLSearchNode) {
         // doing it the imperative way because it's faster
@@ -17,7 +19,7 @@ export class EventNameController {
     public get = (key: string): EventName => {
         const event = this.events[key];
         if (!event) {
-            console.error(`^1Event with key ${key} not found^0`);
+            this.logger.error(`Event with key ${key} not found`);
             return "";
         }
         return event;
