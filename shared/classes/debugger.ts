@@ -42,7 +42,8 @@ export class Debugger {
         if (!debug) return;
 
         this.canContinue = false;
-        TriggerEvent(events.get("Shared.Debugger.BreakpointHit"), this.moduleName, id, args);
+        const strArgs = typeof args === "object" ? json.encode(args) : args;
+        TriggerEvent(events.get("Shared.Debugger.BreakpointHit"), this.moduleName, id, strArgs);
         while (!this.canContinue) Wait(0);
     }
 
@@ -51,10 +52,12 @@ export class Debugger {
      * @param id Unique identifier for the watchpoint
      * @param args Arguments to be displayed when the watchpoint is hit
      */
-    public watchpoint(id: string, args: any) {
+    public watchpoint(id: string, args: any = null) {
         if (!debug) return;
 
-        TriggerEvent(events.get("Shared.Debugger.WatchpointHit"), this.moduleName, id, args);
+        const strArgs = typeof args === "object" ? json.encode(args) : args;
+
+        TriggerEvent(events.get("Shared.Debugger.WatchpointHit"), this.moduleName, id, strArgs);
     }
 }
 
