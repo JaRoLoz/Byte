@@ -43,7 +43,7 @@ const main = () => {
         const ar2 = r2;
         const ar3 = r3;
     }
-}
+};
 
 const [initErr, errString] = init();
 

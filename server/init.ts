@@ -11,7 +11,6 @@ let hasInitiated = false;
  * @returns A result whose error is a string that describes the error that occurred during the initialization process.
  */
 export const init = (): Result<null, string> => {
-    
     if (hasInitiated) {
         const logger = new Logger("init");
         const translator = getTranslator();
@@ -24,7 +23,7 @@ export const init = (): Result<null, string> => {
 
     const configXml = LoadResourceFile(GetCurrentResourceName(), "assets/config.xml");
     if (configXml === "") return Err("No config.xml file found");
-    
+
     const eventsXml = LoadResourceFile(GetCurrentResourceName(), "assets/events.xml");
     if (eventsXml === "") return Err("No events.xml file found");
 
@@ -32,8 +31,10 @@ export const init = (): Result<null, string> => {
     if (localeXml === "") return Err("No locales.xml file found");
 
     const config = ConfigController.getInstance();
-    const localExists = new XMLSearchNode(XML.decode(localeXml).children[0])
-        .search({ tag: "translation", attrs: { key: "lang", value: config.getLocale() } })[0];
+    const localExists = new XMLSearchNode(XML.decode(localeXml).children[0]).search({
+        tag: "translation",
+        attrs: { key: "lang", value: config.getLocale() }
+    })[0];
     if (!localExists) return Err(`No translations found for '${config.getLocale()}' locale.`);
 
     hasInitiated = true;
