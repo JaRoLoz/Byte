@@ -7,6 +7,7 @@
         <entry key="Logger.Trace.Error">ERROR</entry>
         <entry key="Logger.Trace.Debug">DEBUG</entry>
         <entry key="Shared.Debugger.ProductionWarning">The Debugger is only intended for development purposes. Please remove all breakpoints before deploying to production.</entry>
+        <entry key="Server.Console.InitAlreadyCalled">The init function must be called only once.</entry>
         <entry key="Server.Console.ServerStarted">Byte server initialized!</entry>
         <entry key="Server.Deferrals.Deferring">Deferring connection...</entry>
         <entry key="Server.Deferrals.Access.Rejected">You don't have permission to access the server.</entry>
