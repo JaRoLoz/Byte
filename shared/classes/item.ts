@@ -1,6 +1,4 @@
-import { IStringifiable } from "../interfaces";
-
-export class Item implements IStringifiable {
+export class Item {
     private name: string;
     private label: string;
     private description: string;

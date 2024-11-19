@@ -11,10 +11,17 @@
         "outDir": "../build/client",
         "declaration": true
     },
-    "exclude": ["../node_modules", "../shared"],
+    "exclude": ["../node_modules", "../shared", ".ignored_shared"],
     "tstl": {
         "luaTarget": "5.4",
         "noImplicitSelf": true,
         "noHeader": true
+    },
+    "typedocOptions": {
+        "name": "Client",
+        "out": "../docs/client",
+        "exclude": "**/.ignored_shared/**/*.ts",
+        "entryPointStrategy": "expand",
+        "plugin": "typedoc-github-theme"
     }
 }

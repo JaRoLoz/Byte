@@ -1,6 +1,9 @@
 <events xmlns="https://www.w3schools.com"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.w3schools.com events.xsd">
+    <eventName key="Shared.Debugger.BreakpointHit">Byte:shared:Debugger:BreakpointHit</eventName>
+    <eventName key="Shared.Debugger.WatchpointHit">Byte:shared:Debugger:WatchpointHit</eventName>
+    <eventName key="Shared.Debugger.BreakpointContinue">Byte:shared:Debugger:BreakpointContinue</eventName>
     <eventName key="Client.Player.SetPlayerField">Byte:client:Player:SetPlayerField</eventName>
     <eventName key="Client.Player.OnPlayerReady">Byte:client:Player:OnPlayerReady</eventName>
     <eventName key="Client.Inventory.SetInventory">Byte:client:Inventory:SetInventory</eventName>

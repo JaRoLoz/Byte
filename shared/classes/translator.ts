@@ -4,16 +4,22 @@ import { XMLSearchNode } from "./xml";
 
 const configController = ConfigController.getInstance();
 
+/**
+ * Utility class to translate keys to values based on a XML file.
+ */
 export class Translator {
-    /** @noSelf **/
-    public static construct = (lang: string, xml: XMLNode) => new Translator(lang, xml);
-
     private translations: Record<string, string> = {};
     private lang: string;
 
+    /**
+     * 
+     * @param lang Language name to get the translations for
+     * @param xml The root node of the XML file containing the translations
+     * @returns A new `Translator` object
+     */
     constructor(lang: string, xml: XMLNode) {
         this.lang = lang;
-        const xmlNode = XMLSearchNode.construct(xml);
+        const xmlNode = new XMLSearchNode(xml);
 
         const translations = xmlNode.search({ tag: "translation", attrs: { key: "lang", value: lang } })[0];
         if (!translations) {
@@ -32,10 +38,13 @@ export class Translator {
 }
 
 let instance: Translator;
+/**
+ * @returns The singleton instance of the `Translator` class for the Framework translations.
+ */
 export const getTranslator = () => {
     if (!instance) {
         const langXMLRoot = XML.decode(LoadResourceFile(GetCurrentResourceName(), "assets/locales.xml"));
-        instance = Translator.construct(configController.getLocale(), langXMLRoot.children[0] as XMLNode);
+        instance = new Translator(configController.getLocale(), langXMLRoot.children[0] as XMLNode);
     }
 
     return instance;

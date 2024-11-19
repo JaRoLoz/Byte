@@ -1,6 +1,6 @@
 import * as consts from "../shared/consts";
 import * as interfaces from "../shared/interfaces";
-import { ConfigController, Item, Translator, XMLSearchNode } from "../shared/classes";
+import { ByteGameObject, ConfigController, Item, Translator, XMLSearchNode } from "../shared/classes";
 import * as utils from "../shared/utils";
 import { Inventory } from "../classes/inventory";
 import { InventorySlot } from "../classes/inventorySlot";
@@ -16,6 +16,8 @@ import { EnvManager } from "../utils/env";
 import { Logger } from "../utils/logger";
 import { ExportedClass } from "../shared/classes/exported";
 import { RPCController } from "../controllers/rpcController";
+import { EventNameController } from "../shared/classes/eventNameController";
+import { Debugger } from "../shared/classes/debugger";
 
 export type ByteExport = {
     classes: {
@@ -40,10 +42,13 @@ export type ByteExport = {
     shared: {
         interfaces: typeof interfaces;
         classes: {
+            ByteGameObject: typeof ByteGameObject;
             ConfigController: typeof ConfigController;
             Item: ExportedClass<typeof Item>;
             Translator: ExportedClass<typeof Translator>;
             XMLSearchNode: ExportedClass<typeof XMLSearchNode>;
+            EventNameController: ExportedClass<typeof EventNameController>;
+            Debugger: ExportedClass<typeof Debugger>;
         };
         utils: typeof utils;
         consts: typeof consts;
@@ -75,10 +80,13 @@ const exporterFunction = (): ByteExport => ({
         utils,
         consts,
         classes: {
-            ConfigController: ConfigController,
+            ByteGameObject,
+            ConfigController,
             Item: new ExportedClass(Item),
             Translator: new ExportedClass(Translator),
-            XMLSearchNode: new ExportedClass(XMLSearchNode)
+            XMLSearchNode: new ExportedClass(XMLSearchNode),
+            EventNameController: new ExportedClass(EventNameController),
+            Debugger: new ExportedClass(Debugger)
         }
     }
 });

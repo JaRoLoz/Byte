@@ -1,4 +1,5 @@
 import { getTranslator } from "../shared/classes";
+import { MAX_TRACE_LENGTH } from "../shared/consts/logger";
 import { EnvManager } from "./env";
 
 const translator = getTranslator();
@@ -7,8 +8,6 @@ type Trace = {
     color: number;
     level: string;
 };
-
-const maxTraceLength = 7;
 
 export class Logger {
     private module?: string;
@@ -27,7 +26,7 @@ export class Logger {
 
         if (moduleParts.length > 0) moduleString = `^6(${moduleString}) ^0`;
 
-        const traceString = `^${traceLevel.color}[${traceLevel.level.slice(0, maxTraceLength).padStart(maxTraceLength)}]^0 `;
+        const traceString = `^${traceLevel.color}[${traceLevel.level.slice(0, MAX_TRACE_LENGTH).padStart(MAX_TRACE_LENGTH)}]^0 `;
 
         console.log(`${traceString}${moduleString}`, ...args);
     };

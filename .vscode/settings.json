@@ -1,8 +1,8 @@
 {
-    "discord.enabled": true,
     "files.exclude": {
         "node_modules": true,
         "**/.git": true,
+        ".gitattributes": true,
         "**/.svn": true,
         "**/.hg": true,
         "**/CVS": true,
@@ -17,6 +17,7 @@
         "*.bundle.json": true,
         "shared/native_defs.d.ts": true,
         "**/tsconfig.json": true,
+        "**/tsdoc.json": true,
         "lua": true,
         "LICENSE": true,
         "build": true,

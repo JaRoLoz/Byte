@@ -8,11 +8,16 @@ import {
     PedProps
 } from "../shared/types";
 import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../shared/consts";
+import { CPed } from "./game/ped";
 
-export class Ped {
+const malePedHash = GetHashKey("mp_m_freemode_01");
+const femalePedHash = GetHashKey("mp_f_freemode_01");
+
+export class Ped extends CPed {
     private source: number;
 
     constructor(source: number) {
+        super(GetPlayerPed(source));
         this.source = source;
     }
 
@@ -30,14 +35,12 @@ export class Ped {
     };
 
     public getPedGender = (): PlayerGender => {
-        const maleHash = GetHashKey("mp_m_freemode_01");
-        const femaleHash = GetHashKey("mp_f_freemode_01");
         const model = this.getPedModel();
 
         // mayority of players are males, sounds sexist
         // but it's true
-        if (model === maleHash) return PlayerGender.MALE;
-        if (model === femaleHash) return PlayerGender.FEMALE;
+        if (model === malePedHash) return PlayerGender.MALE;
+        if (model === femalePedHash) return PlayerGender.FEMALE;
         return PlayerGender.UNKNOWN;
     };
 

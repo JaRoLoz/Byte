@@ -85,8 +85,9 @@ declare global {
     };
     function vector4(x: number, y: number, z: number, w: number): Vector4;
     function CreateThread(callback: () => void): void;
-    function AddEventHandler(eventName: string, cb: (...args: any[]) => void): void;
+    function AddEventHandler(eventName: string, cb: (...args: any[]) => void): any;
     function RegisterNetEvent(eventName: string, cb: (...args: any[]) => void): void;
+    function RemoveEventHandler(handler: any): void;
     function TriggerClientEvent(eventName: string, ...args: any[]): void;
     function TriggerServerEvent(eventName: string, ...args: any[]): void;
     function TriggerEvent(eventName: string, ...args: any[]): void;

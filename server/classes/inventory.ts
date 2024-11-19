@@ -1,4 +1,4 @@
-import { ConfigController } from "../shared/classes";
+import { ConfigController, Item } from "../shared/classes";
 import { InventorySlot } from "./inventorySlot";
 import type { IObjectifiable } from "../shared/interfaces/IObjectifiable";
 import type { InventoryData, SlotData, SlotInfo } from "../shared/types/inventory";
@@ -38,12 +38,12 @@ export abstract class Inventory implements IObjectifiable<InventoryData> {
 
     public getEmptySlot = () => this.slots.findIndex(slot => slot.getItem() === undefined);
 
-    public getSlotWithItem = (item: string) => this.slots.findIndex(slot => slot.getItem()?.getName() === item);
+    public getSlotWithItem = (item: Item) => this.slots.findIndex(slot => slot.getItem()?.getName() === item.getName());
 
-    protected _addItem = (item: string, amount: number = 1, info: SlotInfo | undefined = undefined) => {
+    protected _addItem = (item: Item, amount: number = 1, info: SlotInfo | undefined = undefined) => {
         const configController = ConfigController.getInstance();
         const items = configController.getItems();
-        const itemClass = items[item];
+        const itemClass = items[item.getName()];
 
         if (this.getTotalWeight() + itemClass.getWeight() * amount > this.maxWeight) {
             //max weight reached
@@ -70,7 +70,7 @@ export abstract class Inventory implements IObjectifiable<InventoryData> {
         return true;
     };
 
-    protected _removeItem = (item: string, amount: number = 1) => {
+    protected _removeItem = (item: Item, amount: number = 1) => {
         while (amount > 0) {
             const slot = this.getSlotWithItem(item);
 
@@ -90,8 +90,8 @@ export abstract class Inventory implements IObjectifiable<InventoryData> {
         return true;
     };
 
-    public getItemAmount = (item: string) => {
-        const containingSlots = this.slots.filter(slot => slot.getItem()?.getName() === item);
+    public getItemAmount = (item: Item) => {
+        const containingSlots = this.slots.filter(slot => slot.getItem()?.getName() === item.getName());
         return containingSlots.reduce((total, slot) => total + slot.getAmount(), 0);
     };
 

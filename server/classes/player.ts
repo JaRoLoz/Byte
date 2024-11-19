@@ -103,7 +103,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         logger.debug(`Player ${this.uuid} saved to database.`);
     };
 
-    public toObject = () => ({
+    public toObject = (): DBPlayerInfo => ({
         uuid: this.uuid,
         data: this.data,
         job: this.job,

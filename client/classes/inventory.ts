@@ -1,3 +1,4 @@
+import { Item } from "../shared/classes";
 import { IObjectifiable } from "../shared/interfaces";
 import { InventoryData } from "../shared/types";
 import { InventorySlot } from "./inventorySlot";
@@ -15,10 +16,10 @@ export abstract class Inventory implements IObjectifiable<InventoryData> {
     public getSlots = () => this.slots;
     public getSlot = (slot: number) => this.slots[slot];
 
-    public getSlotWithItem = (item: string) => this.slots.findIndex(slot => slot.getItem()?.getName() === item);
+    public getSlotWithItem = (item: Item) => this.slots.findIndex(slot => slot.getItem()?.getName() === item.getName());
 
-    public getItemAmount = (item: string) => {
-        const containingSlots = this.slots.filter(slot => slot.getItem()?.getName() === item);
+    public getItemAmount = (item: Item) => {
+        const containingSlots = this.slots.filter(slot => slot.getItem()?.getName() === item.getName());
         return containingSlots.reduce((total, slot) => total + slot.getAmount(), 0);
     };
 

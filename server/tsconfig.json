@@ -10,10 +10,17 @@
         "outDir": "../build/server",
         "declaration": true
     },
-    "exclude": ["../node_modules"],
+    "exclude": ["../node_modules", ".ignored_shared"],
     "tstl": {
         "luaTarget": "5.4",
         "noImplicitSelf": true,
         "noHeader": true
+    },
+    "typedocOptions": {
+        "name": "Server",
+        "out": "../docs/server",
+        "exclude": "**/.ignored_shared/**/*.ts",
+        "entryPointStrategy": "expand",
+        "plugin": "typedoc-github-theme"
     }
 }

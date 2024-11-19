@@ -6,7 +6,7 @@ const logger = new Logger("removePrivilege");
 
 const removePrivilege: Command = {
     command: "removePrivilege",
-    privilege: "GOD",
+    privilege: Privilege.GOD,
     commandFn: (src, args, raw) => {
         let discord = args[0] as string;
 

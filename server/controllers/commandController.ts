@@ -4,7 +4,7 @@ import { Privilege } from "./privilegeController";
 export type Command = {
     command: string;
     commandFn: (this: void, src: number, args: string[], raw: string) => void;
-    privilege?: keyof typeof Privilege;
+    privilege?: Privilege;
 };
 
 /** @noSelf **/
@@ -13,7 +13,7 @@ export class CommandController {
         RegisterCommand(
             command.command,
             (src: number, args: string[], raw: string) => {
-                const requiredPrivilege = command.privilege || "NONE";
+                const requiredPrivilege = command.privilege || Privilege.NONE;
                 const user = new User(src);
                 const hasPrivilege = user.hasPrivilege(requiredPrivilege);
                 if (!hasPrivilege) return;

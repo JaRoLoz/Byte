@@ -1,7 +1,10 @@
 node_modules/
+docs/
 build/
+fxmanifest.lua
 client/shared
 server/shared
+**/.ignored_*
 package-lock.json
 bun.lockb
 pnpm-lock.yaml

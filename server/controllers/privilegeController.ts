@@ -17,7 +17,7 @@ const logger = new Logger("PrivilegeController");
 export class PrivilegeController {
     /** @noSelf **/
     private static instance: PrivilegeController;
-    private privilegedUsers: Record<string, keyof typeof Privilege> = {};
+    private privilegedUsers: Record<string, Privilege> = {};
 
     private constructor() {
         this.reloadPrivileges();
@@ -57,7 +57,7 @@ export class PrivilegeController {
             return;
         }
 
-        this.privilegedUsers[discord] = privilege;
+        this.privilegedUsers[discord] = Privilege[privilege];
         MySQL.query.await("INSERT INTO privileges (discord, privilege) VALUES (?, ?)", [discord, privilege]);
     };
 
@@ -75,11 +75,11 @@ export class PrivilegeController {
         MySQL.query.await("DELETE FROM privileges WHERE discord = ?", [discord]);
     };
 
-    public getPrivilege = (discordId: string): keyof typeof Privilege => {
-        return this.privilegedUsers[discordId] || "NONE";
+    public getPrivilege = (discordId: string): Privilege => {
+        return this.privilegedUsers[discordId] || Privilege.NONE;
     };
 
-    public hasPrivilege = (privilege: keyof typeof Privilege, target: keyof typeof Privilege) => {
+    public hasPrivilege = (privilege: Privilege, target: Privilege) => {
         // prioritize safety
         return (Privilege[privilege] || Privilege.NONE) >= (Privilege[target] || Privilege.GOD);
     };

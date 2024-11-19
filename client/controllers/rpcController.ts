@@ -17,6 +17,13 @@ export class RPCController {
         });
     }
 
+    /**
+     * Calls a procedure on the server.
+     * @template Args An array containing the types of the arguments to pass to the server.
+     * @param procedure The name of the procedure to call.
+     * @param args The arguments to pass to the server.
+     * @returns A promise that resolves when the server responds.
+     */
     public call = <Args extends any[] = any>(procedure: string, args: any) => {
         const procedurePromise = promise.new();
         this.promises[procedure] = procedurePromise;

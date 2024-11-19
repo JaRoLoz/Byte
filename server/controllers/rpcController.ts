@@ -2,6 +2,11 @@ import { getEventNames } from "../shared/classes/eventNameController";
 
 const eventNames = getEventNames();
 
+/**
+ * Type of a RPC function that can be called from the client.
+ * @param src The player source that called the procedure.
+ * @param cb The callback function to call when the procedure is done.
+ */
 export type CallbackFn = (src: number, cb: (args: any) => void, args: any) => any;
 
 export class RPCController {

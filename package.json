@@ -1,7 +1,7 @@
 {
     "scripts": {
         "setup": "symlink-dir ./shared ./client/shared && symlink-dir ./shared ./server/shared",
-        "clean": "rimraf ./build",
+        "clean": "rimraf ./build && rimraf ./client/shared && rimraf ./client/.ignored_shared && rimraf ./server/.ignored_shared && rimraf ./server/shared && rimraf ./docs",
         "format:client": "prettier --write \"./client\"",
         "format:server": "prettier --write \"./server\"",
         "format:shared": "prettier --write \"./shared\"",
@@ -11,17 +11,22 @@
         "prebuild:server": "npm run format:server",
         "types:client": "dets ./build/client/index.d.ts --name byte-client --out ./build/client/byte-client.d.ts",
         "types:server": "dets ./build/server/index.d.ts --name byte-server --out ./build/server/byte-server.d.ts",
-        "update-types": "types-replacer ./build/client/byte-client.d.ts ./build/server/byte-server.d.ts ./shared/native_defs.d.ts"
+        "update-types": "types-replacer ./build/client/byte-client.d.ts ./build/server/byte-server.d.ts ./shared/native_defs.d.ts",
+        "docs:client": "cd client && typedoc . --tsconfig ./tsconfig.json",
+        "docs:server": "cd server && typedoc . --tsconfig ./tsconfig.json",
+        "docs": "npm run docs:client && npm run docs:server"
     },
     "devDependencies": {
-        "@typescript-to-lua/language-extensions": "^1.19.0",
+        "@typescript-to-lua/language-extensions": "1.19.0",
         "dets": "0.16.2",
         "mkdirp": "3.0.1",
         "move-file-cli": "3.0.0",
         "prettier": "3.2.5",
         "rimraf": "5.0.5",
         "symlink-dir": "5.2.1",
+        "typedoc": "0.26.11",
+        "typedoc-github-theme": "0.1.2",
         "typescript": "5.4.3",
-        "typescript-to-lua": "1.25.1"
+        "typescript-to-fivem-lua": "1.27.0"
     }
 }

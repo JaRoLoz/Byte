@@ -27,13 +27,13 @@ export class User {
         return identifiers;
     };
 
-    public getPrivilege = (): keyof typeof Privilege => {
-        if (this.src === 0) return "GOD";
+    public getPrivilege = (): Privilege => {
+        if (this.src === 0) return Privilege.GOD;
         const privilegeController = PrivilegeController.getInstance();
         return privilegeController.getPrivilege(this.getIdentifier("discord")!);
     };
 
-    public hasPrivilege = (target: keyof typeof Privilege) => {
+    public hasPrivilege = (target: Privilege) => {
         if (this.src === 0) return true; // server has maximum privilege
         const privilegeController = PrivilegeController.getInstance();
         return privilegeController.hasPrivilege(this.getPrivilege(), target);

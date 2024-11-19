@@ -1,6 +1,9 @@
 import { Item } from "./item";
 import { XMLSearchNode } from "./xml";
 
+/**
+ * Singleton class to handle the configuration of the Framework core.
+ */
 export class ConfigController {
     /** @noSelf **/
     private static instance: ConfigController;
@@ -12,7 +15,7 @@ export class ConfigController {
 
     private constructor() {
         const xmlRootNode = XML.decode(LoadResourceFile(GetCurrentResourceName(), "assets/config.xml")).children[0];
-        const xml = XMLSearchNode.construct(xmlRootNode);
+        const xml = new XMLSearchNode(xmlRootNode);
         
         const globalNode = xml.search({ tag: "global" })[0];
         const coreNode = xml.search({ tag: "core" })[0];

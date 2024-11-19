@@ -6,9 +6,6 @@ import removePrivilege from "./removePrivilege";
 import testLoadPlayer from "./testLoadPlayer";
 import testPlayer from "./testPlayer";
 
-CommandController.registerCommand(addPrivilege);
-CommandController.registerCommand(removePrivilege);
-CommandController.registerCommand(closeServer);
-CommandController.registerCommand(openServer);
-CommandController.registerCommand(testPlayer);
-CommandController.registerCommand(testLoadPlayer);
+const commands = [addPrivilege, removePrivilege, closeServer, openServer, testPlayer, testLoadPlayer];
+
+commands.forEach(command => CommandController.registerCommand(command));

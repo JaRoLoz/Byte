@@ -1,0 +1,36 @@
+name: docs
+on: push
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run setup
+      - run: bun run docs
+
+  # deploy-docs:
+  #   needs: build-docs
+
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+    
+  #   environment:
+  #     name: github-pages
+  #     url: '${{ steps.deployment.outputs.page_url }}'
+    
+  #   runs-on: ubuntu-latest
+    
+  #   steps:
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v4
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: ./docs
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4

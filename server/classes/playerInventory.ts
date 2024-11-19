@@ -1,7 +1,7 @@
 import { Inventory } from "./inventory";
 import { InventorySlot } from "./inventorySlot";
 import type { SlotData, SlotInfo } from "../shared/types/inventory";
-import { ConfigController } from "../shared/classes";
+import { ConfigController, Item } from "../shared/classes";
 import { getEventNames } from "../shared/classes/eventNameController";
 
 const eventNames = getEventNames();
@@ -14,13 +14,13 @@ export class PlayerInventory extends Inventory {
         this.src = src;
     }
 
-    public addItem = (item: string, amount?: number, info?: SlotInfo) => {
+    public addItem = (item: Item, amount?: number, info?: SlotInfo) => {
         const result = this._addItem(item, amount, info);
         this.emitChanges();
         return result;
     };
 
-    public removeItem = (item: string, amount?: number) => {
+    public removeItem = (item: Item, amount?: number) => {
         const result = this._removeItem(item, amount);
         this.emitChanges();
         return result;
