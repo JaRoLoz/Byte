@@ -2,7 +2,6 @@ import { DBPlayerInfo } from "../controllers/playerController";
 import type { PlayerData, PlayerGang, PlayerJob } from "../shared/types/player";
 import type { IObjectifiable } from "../shared/interfaces/IObjectifiable";
 import { Logger } from "../utils/logger";
-import { Inventory } from "./inventory";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
@@ -63,10 +62,17 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         this.emitChange("gang");
     };
 
+    /**
+     * Emits a change to the client in order to update their local player's data.
+     * @param key The key of the Player property that was changed.
+     */
     private emitChange = (key: string) => {
         TriggerClientEvent(eventNames.get("Client.Player.SetPlayerField"), this.getSrc(), key, this[key as keyof this]);
     };
 
+    /**
+     * Updates the player's position to the current position of their ped.
+     */
     public updatePosition = () => {
         const position = GetEntityCoords(GetPlayerPed(this.getSrc()), true);
         this.position = position;
@@ -90,7 +96,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
             gang = VALUES(gang),
             position = VALUES(position),
             inventory = VALUES(inventory)
-        `,
+            `,
             [
                 data.uuid,
                 json.encode(data.data),
