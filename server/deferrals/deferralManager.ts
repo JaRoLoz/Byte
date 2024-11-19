@@ -1,5 +1,5 @@
 import { ServerAccessController } from "../controllers/serverAccessController";
-import { getTranslator } from "../shared/classes";
+import { getTranslator, Optional } from "../shared/classes";
 import { Logger } from "../utils/logger";
 import discordDeferral from "./discordDeferral";
 import steamDeferral from "./steamDeferral";
@@ -27,6 +27,11 @@ export class DeferralManager {
     public static removeDeferral = (name: string) => {
         logger.debug(`Removing deferral: ${name}`);
         delete DeferralManager.deferrals[name];
+    };
+
+    public static getDeferral = (name: string): Optional<Deferral> => {
+        if (DeferralManager.deferrals[name]) return Optional.Some(DeferralManager.deferrals[name]);
+        return Optional.None();
     };
 
     public static defer = (playerName: string, setKickReason: KickFunction, deferrals: any) => {
