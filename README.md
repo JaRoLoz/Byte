@@ -8,7 +8,10 @@ Once you have [jade](https://github.com/JaRoLoz/jade) and [tstl-tables](https://
 
 # Docs
 
-~~_WIP_~~
+[Client reference](https://jaroloz.github.io/Byte/client)
+[Server reference](https://jaroloz.github.io/Byte/server)
+> [!NOTE]
+> All docs for `shared` are replicated in both references.
 
 ## Code guidelines
 
