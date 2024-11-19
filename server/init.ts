@@ -1,5 +1,5 @@
 import { DeferralManager } from "./deferrals/deferralManager";
-import { ConfigController, EmptyOk, Err, getTranslator, Ok, Result, XMLSearchNode } from "./shared/classes";
+import { ConfigController, Err, getTranslator, Ok, Result, XMLSearchNode } from "./shared/classes";
 import { EnvManager } from "./utils/env";
 import { Logger } from "./utils/logger";
 
