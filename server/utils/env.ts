@@ -1,5 +1,6 @@
 /** @noSelf **/
 export class EnvManager {
+    private constructor() {}
     public static getMaxClient = () => GetConvarInt("sv_maxclients", 48);
     public static getGameBuild = () => GetConvarInt("sv_enforceGameBuild", 1604);
     public static getTags = () => GetConvar("tags", "");
