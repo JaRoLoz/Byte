@@ -14,12 +14,12 @@ export type Result<T = Null, E = Null> =
  * @param value The value to wrap
  * @returns A successful result
  */
-export const Ok = <T>(value: T): Result<T> => [false, value];
+export const Ok = <T, E>(value: T): Result<T, E> => [false, value];
 /**
  * Helper function to create an empty successful result
  * @returns An empty successful result
  */
-export const EmptyOk = (): Result<Null> => [false, undefined];
+export const EmptyOk = <E>(): Result<Null, E> => [false, undefined];
 /**
  * Helper function to create an error result
  * @param error The error to wrap
