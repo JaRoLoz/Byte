@@ -23,11 +23,12 @@ jobs:
         run: |
           bun run clean-setup
           bun run clean-build
+          rm -f jade_linux_x86_64.zip
           rm -f jade
           rm -rf node_modules
 
       - name: Package assets
-        run: zip -r Byte.zip */*
+        run: zip -r Byte.zip *
 
       - name: Create Release
         id: create_release
