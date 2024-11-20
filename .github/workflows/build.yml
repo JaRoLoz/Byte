@@ -40,7 +40,6 @@ jobs:
           prerelease: false
 
       - name: Upload Release
-        run: 
         id: upload-release 
         uses: actions/upload-release-asset@v1
         env:
