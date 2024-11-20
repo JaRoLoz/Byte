@@ -1,6 +1,6 @@
 import { User } from "../classes/user";
 import { Deferral } from "../deferrals/deferralManager";
-import { getTranslator } from "../shared/classes";
+import { Err, getTranslator, Ok } from "../shared/classes";
 import { EnvManager } from "../utils/env";
 import { Privilege } from "./privilegeController";
 
@@ -16,18 +16,17 @@ export class ServerAccessController {
     public getServerClosed = () => this.serverClosed;
     public setServerClosed = (closed: boolean) => (this.serverClosed = closed);
 
-    public deferral: Deferral = (src, _playerName, _setKickReason, deferrals) => {
-        if (!this.serverClosed) return true;
+    public deferral: Deferral = (src, _playerName, _setKickReason, _deferrals) => {
+        if (!this.serverClosed) return Ok(null);
 
         const user = new User(src);
         const hasPermission = user.hasPrivilege(Privilege.WHITELISTED);
 
         if (!hasPermission) {
-            deferrals.done(translator.get("Server.Deferrals.Access.Rejected"));
-            return false;
+            return Err(translator.get("Server.Deferrals.Access.Rejected"));
         }
 
-        return true;
+        return Ok(null);
     };
 
     /** @noSelf **/
