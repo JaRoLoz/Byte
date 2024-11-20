@@ -21,12 +21,13 @@ jobs:
 
       - name: Cleanup
         run: |
-          bun run clean
+          bun run clean-setup
+          bun run clean-build
           rm -f jade
           rm -rf node_modules
 
       - name: Package assets
-        run: zip Byte.zip .
+        run: zip -r Byte.zip */*
 
       - name: Create Release
         id: create_release
