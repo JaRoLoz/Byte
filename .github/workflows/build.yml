@@ -1,21 +1,53 @@
 name: build
 on: push
+on:
+  push:
+    tags:
+    - 'v*'
 
 jobs:
-  build-client:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: bun install
-      - run: bun run setup
-      - run: bun run build:client
 
-  build-server:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
-      - run: bun run setup
-      - run: bun run build:server
+      - name: Download jade
+        run: |
+          wget https://github.com/JaRoLoz/jade/releases/latest/download/jade_linux_x86_64.zip
+          unzip -j ./jade_linux_x86_64.zip
+
+      - name: Build with jade
+        run: ./jade .
+
+      - name: Cleanup
+        run: |
+          bun run clean
+          rm -f jade
+          rm -rf node_modules
+
+      - name: Package assets
+        run: zip Byte.zip .
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release
+        run: 
+        id: upload-release 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Byte.zip
+          asset_name: Byte.zip
+          asset_content_type: application/zip
