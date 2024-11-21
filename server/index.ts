@@ -29,7 +29,7 @@ const main = () => {
 const [initErr, errString] = init();
 
 if (initErr) {
-    console.error(`FATAL ERROR: ^1${errString}^0`);
+    console.error(`^1FATAL ERROR: ${errString}^0`);
 } else {
     main();
 }
