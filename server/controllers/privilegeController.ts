@@ -1,3 +1,4 @@
+import { DB } from "../classes/db/db";
 import { Logger } from "../utils/logger";
 
 export enum Privilege {
@@ -24,7 +25,14 @@ export class PrivilegeController {
     }
 
     private reloadPrivileges = () => {
-        const privilegedUsers = MySQL.query.await("SELECT * FROM privileges");
+        const [dbErr, dbResult] = DB.querySync("select * from privileges", []);
+
+        if (dbErr) {
+            logger.error(`Failed to load privileges: ${dbResult}`);
+            return;
+        }
+
+        const privilegedUsers = dbResult.rows;
 
         this.privilegedUsers = {};
         for (const user of privilegedUsers) {
@@ -58,7 +66,11 @@ export class PrivilegeController {
         }
 
         this.privilegedUsers[discord] = Privilege[privilege];
-        MySQL.query.await("INSERT INTO privileges (discord, privilege) VALUES (?, ?)", [discord, privilege]);
+        const [dbErr, dbResult] = DB.querySync("insert into privileges (discord, privilege) values ($1, $2)", [
+            discord,
+            privilege
+        ]);
+        if (dbErr) logger.error(`Failed to insert privilege into database: ${dbResult}`);
     };
 
     public removePrivilege = (discord: string) => {
@@ -72,7 +84,8 @@ export class PrivilegeController {
         }
 
         delete this.privilegedUsers[discord];
-        MySQL.query.await("DELETE FROM privileges WHERE discord = ?", [discord]);
+        const [dbErr, dbResult] = DB.querySync("delete from privileges where discord = $1", [discord]);
+        if (dbErr) logger.error(`Faileed to delete privilege from database: ${dbResult}`);
     };
 
     public getPrivilege = (discordId: string): Privilege => {

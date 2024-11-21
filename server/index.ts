@@ -1,3 +1,4 @@
+import { DB } from "./classes/db/db";
 import "./commands/commands";
 import "./events/baseEvents";
 import "./events/exports";
@@ -17,32 +18,12 @@ const main = () => {
     logger.info(translator.get("Server.Console.ServerStarted"));
 
     const dbg = new Debugger("main");
-    logger.info(`Debug: ${EnvManager.getDebug()}`);
-    logger.info("Test1");
-    dbg.breakpoint("test", json.encode({ test: "test" }));
-    logger.info("Test2");
-    dbg.breakpoint("test2", json.encode({ test2: "test2" }));
-    logger.info("Test3");
-    dbg.watchpoint("test3", json.encode({ test3: "test3" }));
-    logger.info("Test4");
-
-    const result1 = (): Result<string> => Ok("fdsf");
-    const result2 = (): Result<number> => Err();
-    const result3 = (): Result => EmptyOk();
-    const option1 = (): Optional<number> => Optional.Some(69);
-    const option2 = (): Optional<number> => Optional.None();
-
-    const [err1, r1] = result1();
-    const [err2, r2] = result2();
-    const [err3, r3] = result3();
-    const o1 = option1();
-    const o2 = option2();
-
-    if (!err1 && !err2) {
-        const ar1 = r1;
-        const ar2 = r2;
-        const ar3 = r3;
+    const [dbErr, result] = DB.querySync("select * from player where uuid = $1", ["tete"]);
+    if (dbErr) {
+        logger.error(dbErr);
+        return;
     }
+    dbg.breakpoint("db", `${json.encode(result.rows[0])} (${result.count})`);
 };
 
 const [initErr, errString] = init();

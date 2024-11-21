@@ -8,7 +8,6 @@ client_scripts {
     "build/client_bundle.lua",
 }
 server_scripts {
-    "@oxmysql/lib/MySQL.lua",
     "lua/server/*.lua",
     "build/server_bundle.lua",
 }

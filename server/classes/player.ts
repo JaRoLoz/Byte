@@ -5,6 +5,8 @@ import { Logger } from "../utils/logger";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
+import { Err, Ok, Result } from "../shared/classes";
+import { DB } from "./db/db";
 
 const logger = new Logger("Player");
 const eventNames = getEventNames();
@@ -78,35 +80,20 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         this.position = position;
     };
 
-    public save = () => {
+    public save = (): Result<null, string> => {
+        // TODO
         // this.updatePosition();
         const data = this.toObject();
+        const [dbErr, dbResult] = DB.querySync("select count(*) as count from player where uuid = $1", [this.uuid]);
 
-        MySQL.prepare.await(
-            `
-            INSERT INTO players
-            (uuid, data, job, gang, position, inventory)
-            VALUES
-            (?, ?, ?, ?, ?, ?)
+        if (dbErr) return Err(dbResult);
 
-            ON DUPLICATE KEY UPDATE
+        if (dbResult.rows[0].count === 1) {
+            const queries = [["update  players", []]];
+        }
 
-            data = VALUES(data),
-            job = VALUES(job),
-            gang = VALUES(gang),
-            position = VALUES(position),
-            inventory = VALUES(inventory)
-            `,
-            [
-                data.uuid,
-                json.encode(data.data),
-                json.encode(data.job),
-                json.encode(data.gang),
-                json.encode(data.position),
-                json.encode(data.inventory)
-            ]
-        );
         logger.debug(`Player ${this.uuid} saved to database.`);
+        return Ok(null);
     };
 
     public toObject = (): DBPlayerInfo => ({

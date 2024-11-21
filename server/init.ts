@@ -1,3 +1,4 @@
+import { DB } from "./classes/db/db";
 import { DeferralManager } from "./deferrals/deferralManager";
 import { ConfigController, Err, getTranslator, Ok, Result, XMLSearchNode } from "./shared/classes";
 import { EnvManager } from "./utils/env";
@@ -36,6 +37,9 @@ export const init = (): Result<null, string> => {
         attrs: { key: "lang", value: config.getLocale() }
     })[0];
     if (!localExists) return Err(`No translations found for '${config.getLocale()}' locale.`);
+
+    const [pgErr, pgErrString] = DB.readySync();
+    if (pgErr) return Err("Failed to connect to Byte-pg: " + pgErrString);
 
     hasInitiated = true;
     return Ok(null);
