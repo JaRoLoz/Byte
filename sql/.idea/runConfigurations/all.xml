@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="all" type="DatabaseScript" editBeforeRun="true">
+    <script-file value="$PROJECT_DIR$/player.sql" />
+    <script-file value="$PROJECT_DIR$/player_data.sql" />
+    <script-file value="$PROJECT_DIR$/player_gang.sql" />
+    <script-file value="$PROJECT_DIR$/player_job.sql" />
+    <script-file value="$PROJECT_DIR$/privileges.sql" />
+    <script-mode>FILE</script-mode>
+    <data-source id="8a24e18e-235c-41f5-99cf-f0dfd1a73498" namespace="database/&quot;byte&quot;/schema/&quot;public&quot;" />
+    <method v="2" />
+  </configuration>
+</component>

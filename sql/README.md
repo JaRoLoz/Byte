@@ -1,0 +1,2 @@
+# SQL
+Byte uses PostgreSQL as its main database. In this directory you can find all the sql scripts that generate Byte's db schema. This folder is a [Datagrip](https://www.jetbrains.com/es-es/datagrip/) project. The Datagrip project contains a configuration named `all`which will run all the sql scripts in order and generate the full schema.
