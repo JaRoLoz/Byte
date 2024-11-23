@@ -1,6 +1,5 @@
 import { Command } from "../controllers/commandController";
 import { Logger } from "../utils/logger";
-import { PlayerController } from "../controllers/playerController";
 import { Privilege } from "../controllers/privilegeController";
 
 const logger = new Logger("testLoadPlayer");

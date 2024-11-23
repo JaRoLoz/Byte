@@ -7,7 +7,6 @@ import {
     PedHeadOverlayData,
     PedProps
 } from "../shared/types";
-import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../shared/consts";
 import { CPed } from "./game/ped";
 
 const malePedHash = GetHashKey("mp_m_freemode_01");

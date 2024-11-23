@@ -1,6 +1,7 @@
 import type { PlayerData, PlayerGang, PlayerJob } from "../shared/types/player";
 import { PlayerInventory } from "./playerInventory";
 import { getEventNames } from "../shared/classes/eventNameController";
+import { UUID } from "../shared/utils";
 
 const eventNames = getEventNames();
 
@@ -8,14 +9,14 @@ export class Player {
     /** @noSelf **/
     private static instance: Player;
 
-    private uuid: string;
+    private uuid: UUID;
     private data: PlayerData;
     // private position: Vector3;
     private job: PlayerJob;
     private gang: PlayerGang;
     private inventory: PlayerInventory;
 
-    constructor(uuid: string, playerData: PlayerData, inventory: PlayerInventory, job: PlayerJob, gang: PlayerGang) {
+    constructor(uuid: UUID, playerData: PlayerData, inventory: PlayerInventory, job: PlayerJob, gang: PlayerGang) {
         this.uuid = uuid;
         this.data = playerData;
         this.inventory = inventory;
