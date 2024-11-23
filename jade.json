@@ -56,8 +56,8 @@
         "fx_version": "cerulean",
         "game": "gta5",
         "author": "Zurky",
-        "description": "TSTL template integrating jade",
-        "version": "1.0.0",
+        "description": "Batteries included framework for the Cfx.re platform.",
+        "version": "0.2.1",
         "client_scripts": [
             "lua/client/*.lua",
             "build/client_bundle.lua"
@@ -71,6 +71,9 @@
         ],
         "files": [
             "assets/*"
+        ],
+        "dependencies": [
+            "Byte-pg"
         ],
         "lua54": true
     }
