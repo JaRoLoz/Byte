@@ -1,20 +1,5 @@
 import { Logger } from "../utils/logger";
 import { Player } from "../classes/player";
-import { Inventory } from "../classes/inventory";
-import type { InventoryData, SlotData } from "../shared/types/inventory";
-import { PlayerData, PlayerGang, PlayerJob } from "../shared/types/player";
-import { ConfigController, Err, Optional, Result } from "../shared/classes";
-import { PlayerInventory } from "../classes/playerInventory";
-import { DB } from "../classes/db/db";
-
-export type DBPlayerInfo = {
-    uuid: string;
-    data: PlayerData;
-    job: PlayerJob;
-    gang: PlayerGang;
-    position: Vector3;
-    inventory: InventoryData;
-};
 
 const logger = new Logger("PlayerController");
 

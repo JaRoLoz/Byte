@@ -1,4 +1,4 @@
-import { DB } from "./classes/db/db";
+import { DB } from "./database/db";
 import { DeferralManager } from "./deferrals/deferralManager";
 import { ConfigController, Err, getTranslator, Ok, Result, XMLSearchNode } from "./shared/classes";
 import { EnvManager } from "./utils/env";

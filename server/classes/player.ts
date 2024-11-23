@@ -1,67 +1,126 @@
-import { DBPlayerInfo } from "../controllers/playerController";
 import type { PlayerData, PlayerGang, PlayerJob } from "../shared/types/player";
 import type { IObjectifiable } from "../shared/interfaces/IObjectifiable";
 import { Logger } from "../utils/logger";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
-import { Err, Ok, Result } from "../shared/classes";
-import { DB } from "./db/db";
+import { EmptyOk, Err, Ok, Result } from "../shared/classes";
+import { DBPlayerInfo } from "../shared/types";
+import { savePlayerToDB } from "../database/player";
+import { TransactionResult } from "../database/db";
+import { UUID } from "../shared/utils";
 
 const logger = new Logger("Player");
 const eventNames = getEventNames();
 
 export class Player extends User implements IObjectifiable<DBPlayerInfo> {
-    private uuid: string;
+    private uuid: UUID;
     private data: PlayerData;
-    private position: Vector3;
-    private job: PlayerJob;
-    private gang: PlayerGang;
+    private position: Vector4;
+    private jobs: Array<PlayerJob>;
+    private gangs: Array<PlayerGang>;
     private inventory: PlayerInventory;
 
     constructor(
         src: number,
-        uuid: string,
+        uuid: UUID,
         playerData: PlayerData,
         inventory: PlayerInventory,
-        position: Vector3,
-        job: PlayerJob,
-        gang: PlayerGang
+        position: Vector4,
+        jobs: Array<PlayerJob>,
+        gangs: Array<PlayerGang>
     ) {
         super(src);
         this.uuid = uuid;
         this.data = playerData;
         this.inventory = inventory;
         this.position = position;
-        this.job = job;
-        this.gang = gang;
+        this.jobs = jobs;
+        this.gangs = gangs;
     }
 
     public getUuid = () => this.uuid;
     public getData = () => this.data;
     public getInventory = () => this.inventory;
     public getPosition = () => this.position;
-    public getJob = () => this.job;
-    public getGang = () => this.gang;
+    public getJobs = () => this.jobs;
+    public getGangs = () => this.gangs;
+    public hasJob = (job: PlayerJob) => this.jobs.find(j => j.name === job.name) !== undefined;
+    public hasGang = (gang: PlayerGang) => this.gangs.find(g => g.name === gang.name) !== undefined;
+    public getJob = (job: PlayerJob) => this.jobs.find(j => j.name === job.name);
+    public getGang = (gang: PlayerGang) => this.gangs.find(g => g.name === gang.name);
+    private getJobIndex = (job: PlayerJob) => this.jobs.findIndex(j => j.name === job.name);
+    private getGangIndex = (gang: PlayerGang) => this.gangs.findIndex(g => g.name === gang.name);
 
     public setData = (data: PlayerData) => {
         this.data = data;
         this.emitChange("data");
     };
 
-    public setPosition = (position: Vector3) => {
+    public setDataKey = <K extends keyof PlayerData>(key: K, value: PlayerData[K]) => {
+        this.data[key] = value;
+        this.emitChange("data");
+    };
+
+    public setPosition = (position: Vector4) => {
         this.position = position;
         this.emitChange("position");
     };
 
-    public setJob = (job: PlayerJob) => {
-        this.job = job;
-        this.emitChange("job");
+    public setJobs = (jobs: Array<PlayerJob>) => {
+        this.jobs = jobs;
+        this.emitChange("jobs");
     };
 
-    public setGang = (gang: PlayerGang) => {
-        this.gang = gang;
-        this.emitChange("gang");
+    public addJob = (job: PlayerJob) => {
+        const jobIndex = this.getJobIndex(job);
+        if (jobIndex === -1) this.jobs.push(job);
+        else this.jobs[jobIndex] = job;
+        this.emitChange("jobs");
+    };
+
+    public removeJob = (job: PlayerJob): Result => {
+        const jobIndex = this.getJobIndex(job);
+        if (jobIndex === -1) return Err();
+        this.jobs.splice(jobIndex, 1);
+        this.emitChange("jobs");
+        return EmptyOk();
+    };
+
+    public setJob = (job: PlayerJob): Result => {
+        const jobIndex = this.getJobIndex(job);
+        if (jobIndex === -1) return Err();
+        this.jobs[jobIndex] = job;
+        this.emitChange("jobs");
+        return EmptyOk();
+    };
+
+    public setGangs = (gangs: Array<PlayerGang>) => {
+        this.gangs = gangs;
+        this.emitChange("gangs");
+    };
+
+    public addGang = (gang: PlayerGang) => {
+        const gangIndex = this.getGangIndex(gang);
+        if (gangIndex === -1) this.gangs.push(gang);
+        else this.gangs[gangIndex] = gang;
+        this.emitChange("gangs");
+    };
+
+    public removeGang = (gang: PlayerGang): Result => {
+        const gangIndex = this.getGangIndex(gang);
+        if (gangIndex === -1) return Err();
+        this.gangs.splice(gangIndex, 1);
+        this.emitChange("gangs");
+        return EmptyOk();
+    };
+
+    public setGang = (gang: PlayerGang): Result => {
+        const gangIndex = this.getGangIndex(gang);
+        if (gangIndex === -1) return Err();
+        this.gangs[gangIndex] = gang;
+        this.emitChange("gangs");
+        return EmptyOk();
     };
 
     /**
@@ -76,31 +135,38 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
      * Updates the player's position to the current position of their ped.
      */
     public updatePosition = () => {
-        const position = GetEntityCoords(GetPlayerPed(this.getSrc()), true);
-        this.position = position;
+        const ped = GetPlayerPed(this.getSrc());
+        const position = GetEntityCoords(ped, true);
+        const heading = GetEntityHeading(ped);
+        this.position = vector4(position.x, position.y, position.z, heading);
     };
 
-    public save = (): Result<null, string> => {
-        // TODO
-        // this.updatePosition();
+    public save = (): TransactionResult<null> => {
+        this.updatePosition();
         const data = this.toObject();
-        const [dbErr, dbResult] = DB.querySync("select count(*) as count from player where uuid = $1", [this.uuid]);
 
-        if (dbErr) return Err(dbResult);
+        const [err, errors] = savePlayerToDB(data);
 
-        if (dbResult.rows[0].count === 1) {
-            const queries = [["update  players", []]];
+        if (err) {
+            logger.error(`Failed to save player ${this.uuid} to database.`);
+            return Err(errors);
         }
 
         logger.debug(`Player ${this.uuid} saved to database.`);
-        return Ok(null);
+        return Ok(null) as TransactionResult<null>;
     };
 
     public toObject = (): DBPlayerInfo => ({
         uuid: this.uuid,
-        data: this.data,
-        job: this.job,
-        gang: this.gang,
+        data: {
+            firstname: this.data.firstname,
+            lastname: this.data.lastname,
+            birthdate: this.data.birthdate.getTimestamp(),
+            gender: this.data.gender,
+            nationality: this.data.nationality
+        },
+        jobs: this.jobs,
+        gangs: this.gangs,
         position: this.position,
         inventory: this.inventory.toObject()
     });

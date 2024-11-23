@@ -3,7 +3,7 @@ import { Player } from "../classes/player";
 import { Command } from "../controllers/commandController";
 import { Logger } from "../utils/logger";
 import { PlayerGender } from "../shared/types/player";
-import { ConfigController } from "../shared/classes";
+import { ConfigController, Timestamp } from "../shared/classes";
 import { PlayerInventory } from "../classes/playerInventory";
 import { Privilege } from "../controllers/privilegeController";
 
@@ -23,7 +23,7 @@ const testPlayer: Command = {
             {
                 firstname: "Test",
                 lastname: "Player",
-                birthdate: "01/01/2000",
+                birthdate: new Timestamp(0),
                 gender: PlayerGender.MALE,
                 nationality: "TestLand"
             },
@@ -33,15 +33,19 @@ const testPlayer: Command = {
                 configController.getInventorySlots(),
                 configController.getMaxPlayerWeight()
             ),
-            vector3(0, 0, 0),
-            {
-                name: "police",
-                grade: 1
-            },
-            {
-                name: "ballas",
-                grade: 4
-            }
+            vector4(0, 0, 0, 0),
+            [
+                {
+                    name: "police",
+                    grade: 1
+                }
+            ],
+            [
+                {
+                    name: "ballas",
+                    grade: 4
+                }
+            ]
         );
 
         const inventory = player.getInventory();

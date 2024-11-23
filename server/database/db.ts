@@ -1,12 +1,15 @@
-import { Err, Ok, Result } from "../../shared/classes";
+import { Err, Ok, Result } from "../shared/classes/result";
 
 export type DBResult = {
     rows: any[];
     count: number;
 };
 
+export type TransactionError = { query: string; params: any[]; error: string };
+export type TransactionResult<T> = Result<T, Array<TransactionError>>;
+
 /**
- * Small wrapper around Byte-pg
+ * Small wrapper around [Byte-pg](https://github.com/JaRoloz/Byte-pg)
  * @noSelf
  */
 export class DB {

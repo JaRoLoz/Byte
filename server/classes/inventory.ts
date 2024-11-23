@@ -1,7 +1,7 @@
 import { ConfigController, Item } from "../shared/classes";
 import { InventorySlot } from "./inventorySlot";
 import type { IObjectifiable } from "../shared/interfaces/IObjectifiable";
-import type { InventoryData, SlotData, SlotInfo } from "../shared/types/inventory";
+import type { InventoryData, SlotInfo } from "../shared/types/inventory";
 
 export abstract class Inventory implements IObjectifiable<InventoryData> {
     protected slots: InventorySlot[];

@@ -1,4 +1,4 @@
-import { DB } from "../classes/db/db";
+import { DB } from "../database/db";
 import { Logger } from "../utils/logger";
 
 export enum Privilege {

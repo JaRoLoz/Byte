@@ -1,15 +1,11 @@
+import { Timestamp } from "../classes";
+import { DBPlayerData } from "./db";
+import { ExcludeKey } from "./generic";
+
 export enum PlayerGender {
     MALE,
     FEMALE,
     UNKNOWN
-};
-
-export type PlayerData = {
-    firstname: string;
-    lastname: string;
-    birthdate: string;
-    gender: PlayerGender;
-    nationality: string;
 };
 
 export type PlayerJob = {
@@ -20,4 +16,8 @@ export type PlayerJob = {
 export type PlayerGang = {
     name: string;
     grade: number;
+};
+
+export type PlayerData = ExcludeKey<DBPlayerData, "birthdate"> & {
+    birthdate: Timestamp;
 };
