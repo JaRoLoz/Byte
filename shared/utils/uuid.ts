@@ -1,4 +1,6 @@
-export const uuid = () => {
+export type UUID = string;
+
+export const uuid = (): UUID => {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
         .split("")
         .map(c => {

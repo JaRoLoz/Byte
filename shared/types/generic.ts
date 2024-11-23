@@ -8,3 +8,5 @@ type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] exte
  * Returns a range of numbers from F to T, excluding T (`[F, T)`).
  */
 export type IntRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
+
+export type ExcludeKey<T, K> = Pick<T, Exclude<keyof T, K>>;
