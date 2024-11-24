@@ -1,5 +1,3 @@
-import "./commands/commands";
-import "./events/baseEvents";
 import "./events/exports";
 import type { ByteExport } from "./events/exports";
 import { init } from "./init";
@@ -9,6 +7,8 @@ import { Logger } from "./utils/logger";
 import { TypeChecker } from "./shared/classes/typeChecker";
 
 const main = () => {
+    import("./events/baseEvents");
+    import("./commands/commands");
     const logger = new Logger("main");
     const translator = getTranslator();
 
