@@ -49,8 +49,8 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
     public hasGang = (gang: PlayerGang) => this.gangs.find(g => g.name === gang.name) !== undefined;
     public getJob = (job: PlayerJob) => this.jobs.find(j => j.name === job.name);
     public getGang = (gang: PlayerGang) => this.gangs.find(g => g.name === gang.name);
-    private getJobIndex = (job: PlayerJob) => this.jobs.findIndex(j => j.name === job.name);
-    private getGangIndex = (gang: PlayerGang) => this.gangs.findIndex(g => g.name === gang.name);
+    public getJobIndex = (job: PlayerJob) => this.jobs.findIndex(j => j.name === job.name);
+    public getGangIndex = (gang: PlayerGang) => this.gangs.findIndex(g => g.name === gang.name);
 
     public setData = (data: PlayerData) => {
         this.data = data;
