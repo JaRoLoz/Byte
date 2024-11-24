@@ -40,9 +40,14 @@ export class Debugger {
      */
     public breakpoint(id: string, args: any = null) {
         if (!debug) return;
-
         this.canContinue = false;
-        const strArgs = typeof args === "object" ? json.encode(args) : args;
+
+        const strArgs = typeof args === "object" 
+            ? (args.asString && typeof args.asString === "function") 
+                ? args.asString() 
+                : json.encode(args) 
+            : args;
+
         TriggerEvent(events.get("Shared.Debugger.BreakpointHit"), this.moduleName, id, strArgs);
         while (!this.canContinue) Wait(0);
     }
@@ -55,7 +60,11 @@ export class Debugger {
     public watchpoint(id: string, args: any = null) {
         if (!debug) return;
 
-        const strArgs = typeof args === "object" ? json.encode(args) : args;
+        const strArgs = typeof args === "object" 
+            ? (args.asString && typeof args.asString === "function")  
+                ? args.asString() 
+                : json.encode(args) 
+            : args;
 
         TriggerEvent(events.get("Shared.Debugger.WatchpointHit"), this.moduleName, id, strArgs);
     }
