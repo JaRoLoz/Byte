@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="460" src="https://github.com/user-attachments/assets/62a88d31-c0a9-4140-bc98-571dee3cb733">
+</p>
+
 # Byte
 
 Byte is framework for the [Cfx.re](https://github.com/JaRoLoz/jade) plattform [FiveM](https://fivem.net/). It is written in TypeScript and transpiled to lua using a [fork](https://github.com/JaRoLoz/TypeScriptToFiveMLua) of [tstl](https://typescripttolua.github.io/). The whole framework is stiched together using the [jade](https://github.com/JaRoLoz/jade) build tool.
