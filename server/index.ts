@@ -7,6 +7,7 @@ import { Debugger } from "./shared/classes/debugger";
 import { getTranslator } from "./shared/classes/translator";
 import { Logger } from "./utils/logger";
 import { getPlayerFromDB } from "./database/player";
+import { TypeChecker } from "./shared/classes/typeChecker";
 
 const main = () => {
     const logger = new Logger("main");
@@ -15,18 +16,19 @@ const main = () => {
     logger.info(translator.get("Server.Console.ServerStarted"));
 
     const dbg = new Debugger("main");
-    //@ts-ignore
-    const start: number = os.time();
-    for (let i = 0; i < 100; i++) {
-        const [err, result] = getPlayerFromDB("test3");
-        if (err) {
-            logger.error(json.encode(result));
-            return;
+    const type = new TypeChecker({
+        name: "string",
+        age: {
+            hola: "boolean[]"
         }
-    }
-    //@ts-ignore
-    const end: number = os.time();
-    dbg.watchpoint("time", end - start);
+    });
+    const passed = type.check({
+        name: "hello",
+        age: {
+            hola: [true, "22"]
+        }
+    });
+    dbg.watchpoint("typecheck", passed);
 };
 
 const [initErr, errString] = init();
