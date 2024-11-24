@@ -6,7 +6,6 @@ import { init } from "./init";
 import { Debugger } from "./shared/classes/debugger";
 import { getTranslator } from "./shared/classes/translator";
 import { Logger } from "./utils/logger";
-import { getPlayerFromDB } from "./database/player";
 import { TypeChecker } from "./shared/classes/typeChecker";
 
 const main = () => {
