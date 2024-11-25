@@ -14,14 +14,14 @@ Once you have [jade](https://github.com/JaRoLoz/jade) installed, simply navigate
 
 # Docs
 
-[Client reference](https://jaroloz.github.io/Byte/client)<br>
-[Server reference](https://jaroloz.github.io/Byte/server)
+[Client reference](https://byte-fw.github.io/Byte/client)<br>
+[Server reference](https://byte-fw.github.io/Byte/server)
 > [!NOTE]
 > All docs for `shared` are replicated in both references.
 
 ## Dependencies
 
-- [Byte-pg](https://github.com/JaRoLoz/Byte-pg): Minimal PostgreSQL wrapper
+- [Byte-pg](https://github.com/Byte-fw/Byte-pg): Minimal PostgreSQL wrapper
 
 ## Code guidelines
 
