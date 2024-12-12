@@ -17,7 +17,7 @@ import {
     CObject,
     CPed,
     CVehicle,
-    Ped,
+    PlayerPed,
     Texture,
     TextureDictionary
 } from "../classes";
@@ -34,7 +34,7 @@ export type ByteExport = {
         Inventory: typeof Inventory;
         PlayerInventory: ExportedClass<typeof PlayerInventory>;
         Player: ExportedClass<typeof Player>;
-        Ped: ExportedClass<typeof Ped>;
+        PlayerPed: ExportedClass<typeof PlayerPed>;
         game: {
             CModel: ExportedClass<typeof CModel>;
             CEntity: ExportedClass<typeof CEntity>;
@@ -77,7 +77,7 @@ const exporterFunction = (): ByteExport => ({
         Inventory, // abstract class, can't be instantiated
         PlayerInventory: new ExportedClass(PlayerInventory),
         Player: new ExportedClass(Player),
-        Ped: new ExportedClass(Ped),
+        PlayerPed: new ExportedClass(PlayerPed),
         game: {
             CModel: new ExportedClass(CModel),
             CEntity: new ExportedClass(CEntity),

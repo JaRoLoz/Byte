@@ -43,6 +43,8 @@ declare global {
     var Interval: any;
     var exports: CitizenExports;
 
+    function float(x: number): number;
+
     var json: {
         encode: (data: any) => string;
         decode: (data: string) => any;

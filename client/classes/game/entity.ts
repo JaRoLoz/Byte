@@ -24,6 +24,15 @@ export class CEntity extends CModel implements INetworkeable {
     }
 
     public getEntity = (): number => this.entityId;
+    protected setEntity = (entityId: number) => {
+        this.entityId = entityId;
+        const archetype = GetEntityArchetypeName(entityId);
+        if (archetype !== "") this.setModel(archetype);
+        else {
+            const model = GetEntityModel(entityId);
+            this.setModel(model);
+        }
+    };
 
     public override getHash = (): number => {
         this.modelHash = GetEntityModel(this.entityId);

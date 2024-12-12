@@ -3,7 +3,7 @@ import { PlayerInventory } from "./playerInventory";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { UUID } from "../shared/utils";
 import { Optional } from "../shared/classes";
-import { Ped } from "./playerPed";
+import { PlayerPed } from "./playerPed";
 
 const eventNames = getEventNames();
 
@@ -16,7 +16,7 @@ export class Player {
     private jobs: Array<PlayerJob>;
     private gangs: Array<PlayerGang>;
     private inventory: PlayerInventory;
-    private ped: Ped;
+    private ped: PlayerPed;
 
     constructor(
         uuid: UUID,
@@ -30,7 +30,7 @@ export class Player {
         this.inventory = inventory;
         this.jobs = jobs;
         this.gangs = gangs;
-        this.ped = new Ped(PlayerPedId());
+        this.ped = new PlayerPed(-1);
 
         RegisterNetEvent(eventNames.get("Client.Player.SetPlayerField"), (key: keyof typeof this, value: any) => {
             this[key] = value;

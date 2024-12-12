@@ -1,9 +1,7 @@
-export type PedMaxValues = {
-};
+import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../consts";
 
 export type PedHeadOverlayData = {
     overlayValue: number;
-    colourType: number;
     firstColour: number;
     secondColour: number;
     overlayOpacity: number;
@@ -22,34 +20,59 @@ export type PedHeadBlendData = {
 };
 
 export enum PedComponent {
-    COMP_HEAD = 0, // HEAD
-    COMP_BERD = 1, // MASKS
-    COMP_HAIR = 2, // HAIR
-    COMP_UPPR = 3, // GLOVES
-    COMP_LOWR = 4, // PANTS
-    COMP_HAND = 5, // BAGS & PARACHUTES
-    COMP_FEET = 6, // SHOES
-    COMP_TEEF = 7, // ACCESSORIES
-    COMP_ACCS = 8, // T-SHIRTS
-    COMP_TASK = 9, // BODY ARMOR
-    COMP_DECL = 10,// DECALS
-    COMP_JBIB = 11 // JACKETS
+    /** HEAD */
+    COMP_HEAD = 0,
+    /** MASKS */
+    COMP_BERD = 1,
+    /** HAIR */
+    COMP_HAIR = 2,
+    /** GLOVES */
+    COMP_UPPR = 3,
+    /** PANTS */
+    COMP_LOWR = 4,
+    /** BAGS & PARACHUTES */
+    COMP_HAND = 5,
+    /** SHOES */
+    COMP_FEET = 6,
+    /** ACCESSORIES */
+    COMP_TEEF = 7,
+    /** T-SHIRTS */
+    COMP_ACCS = 8,
+    /** BODY ARMOR */
+    COMP_TASK = 9,
+    /** DECALS */
+    COMP_DECL = 10,
+    /** JACKETS */
+    COMP_JBIB = 11
 }
 
 export enum PedProps {
-    ANCHOR_HEAD = 0,        /* "p_head"   */
-    ANCHOR_EYES = 1,        /* "p_eyes"   */
-    ANCHOR_EARS = 2,        /* "p_ears"   */
-    ANCHOR_MOUTH = 3,       /* "p_mouth"  */
-    ANCHOR_LEFT_HAND = 4,   /* "p_lhand"  */
-    ANCHOR_RIGHT_HAND = 5,  /* "p_rhand"  */
-    ANCHOR_LEFT_WRIST = 6,  /* "p_lwrist" */
-    ANCHOR_RIGHT_WRIST = 7, /* "p_rwrist" */
-    ANCHOR_HIP = 8,         /* "p_lhip"   */
-    ANCHOR_LEFT_FOOT = 9,   /* "p_lfoot"  */
-    ANCHOR_RIGHT_FOOT = 10, /* "p_rfoot"  */
-    ANCHOR_PH_L_HAND = 11,  /* "ph_lhand" */
-    ANCHOR_PH_R_HAND = 12   /* "ph_rhand" */
+    /**"p_head"*/
+    ANCHOR_HEAD = 0,
+    /**"p_eyes"*/
+    ANCHOR_EYES = 1,
+    /**"p_ears"*/
+    ANCHOR_EARS = 2,
+    /**"p_mouth"*/
+    ANCHOR_MOUTH = 3,
+    /**"p_lhand"*/
+    ANCHOR_LEFT_HAND = 4,
+    /**"p_rhand"*/
+    ANCHOR_RIGHT_HAND = 5,
+    /**"p_lwrist"*/
+    ANCHOR_LEFT_WRIST = 6,
+    /**"p_rwrist"*/
+    ANCHOR_RIGHT_WRIST = 7,
+    /**"p_lhip"*/
+    ANCHOR_HIP = 8,
+    /**"p_lfoot"*/
+    ANCHOR_LEFT_FOOT = 9,
+    /**"p_rfoot"*/
+    ANCHOR_RIGHT_FOOT = 10,
+    /**"ph_lhand"*/
+    ANCHOR_PH_L_HAND = 11,
+    /**"ph_rhand"*/
+    ANCHOR_PH_R_HAND = 12
 }
 
 export enum PedHeadOverlay {
@@ -90,3 +113,23 @@ export enum FaceFeature {
     CHIN_HOLE = 18,
     NECK_THICKNESS = 19
 }
+
+export type PedData = {
+    components: Record<keyof typeof PedComponent, { drawable: number; texture: number }>
+    faceFeatures: Record<keyof typeof FaceFeature, number>;
+    props: Record<keyof typeof PedProps, { drawable: number; texture: number }>;
+    headOverlays: Record<keyof typeof PedHeadOverlay, PedHeadOverlayData>;
+    headBlend: PedHeadBlendData;
+    hairColor: number;
+    highlightColor: number;
+};
+
+export type PedMaxValues = {
+    components: Record<keyof typeof PedComponent, Record<number, number>>;
+    props: Record<keyof typeof PedProps, Record<number, number>>;
+    headBlendHeads: { male: Array<number>; female: Array<number> };
+    headBlendHeadsTextures: typeof HEAD_BLEND_TEXTURE_AMOUNT;
+    overlays: Record<keyof typeof PedHeadOverlay, number>;
+    overlaysTextures: typeof OVERLAY_TEXTURE_AMOUNT;
+    faceFeatures: Record<keyof typeof FaceFeature, { min: number, max: number }>;
+};

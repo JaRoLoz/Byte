@@ -21,6 +21,16 @@ export class CModel extends ByteGameObject {
         }
     }
 
+    protected setModel = (model: number | string) => {
+        if (typeof model === "number") {
+            this.modelHash = model;
+            this.modelName = Optional.None();
+        } else {
+            this.modelName = Optional.Some(model);
+            this.modelHash = GetHashKey(model);
+        }
+    };
+
     /**
      * Loads the model into the game
      * @param wait Time to wait for the model to load

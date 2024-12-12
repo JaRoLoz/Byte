@@ -1,39 +1,29 @@
 import "./events/exports";
-import { CModel } from "./classes/game/model";
 import { ByteExport } from "./events/exports";
 import { Logger } from "./utils/logger";
-import { CPed, CVehicle } from "./classes";
+import { PlayerPed } from "./classes";
 import { Debugger } from "./shared/classes/debugger";
+import { PedProps } from "./shared/types";
 
 const logger = new Logger("main");
 const dbg = new Debugger("main");
 
 CreateThread(() => {
-    const playerPed = CPed.playerPed();
+    const playerPed = new PlayerPed();
     while (true) {
-        dbg.breakpoint("main:13");
-        const coords = playerPed.getPosition();
-        const model = new CModel("t20");
-        const [err1, cvehicle] = CVehicle.create(model, coords, 20, true, true);
+        dbg.breakpoint("main:14");
 
-        if (err1) {
-            logger.error("Failed to create vehicle");
-            continue;
-        }
+        playerPed.setPedModel("mp_m_freemode_01");
+        playerPed.resurrect();
+        logger.info(playerPed.asString());
 
-        cvehicle.setIsMissionEntity(true);
-        cvehicle.setAlpha(101);
-        cvehicle.setPrimaryColor([120, 255, 30]);
+        SetPedRandomComponentVariation(playerPed.getPed(), 0);
+        playerPed.setPropDrawableVariation(PedProps.ANCHOR_LEFT_WRIST, 10, 0);
+        playerPed.setPedHeadBlendData(3, 4, 5, 4, 5, 6, 0.5, 0.5, 0.5);
+        playerPed.setHairColor(44, 33);
 
-        const netVehicle = cvehicle.toNet();
-        const [err2, vehicle] = netVehicle.getAs(CVehicle);
-
-        if (err2) {
-            logger.error("Failed to get vehicle from net");
-            continue;
-        }
-
-        logger.info(vehicle.asString());
+        logger.info(json.encode(playerPed.toObject()));
+        logger.info(json.encode(playerPed.getMaxValues()));
     }
 });
 
