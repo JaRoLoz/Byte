@@ -479,6 +479,10 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
             highlightColor
         };
     };
+
+    public override asString(): string {
+        return `PlayerPed { source: ${this.source}, ped: ${this.getPed()}, model: ${this.getModel().getName()} }`;
+    }
 }
 
 // the tstl compiler fucks up big numbers, what a faggot
