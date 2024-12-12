@@ -7,30 +7,34 @@
             "package_manager": "bun",
             "build_script": "setup"
         },
-        {
-            "name": "build-client",
-            "folder": ".",
-            "package_manager": "bun",
-            "build_script": "build:client"
-        },
-        {
-            "name": "build-server",
-            "folder": ".",
-            "package_manager": "bun",
-            "build_script": "build:server"
-        },
-        {
-            "name": "types-client",
-            "folder": ".",
-            "package_manager": "bun",
-            "build_script": "types:client"
-        },
-        {
-            "name": "types-server",
-            "folder": ".",
-            "package_manager": "bun",
-            "build_script": "types:server"
-        },
+        [
+            {
+                "name": "build-client",
+                "folder": ".",
+                "package_manager": "bun",
+                "build_script": "build:client"
+            },
+            {
+                "name": "build-server",
+                "folder": ".",
+                "package_manager": "bun",
+                "build_script": "build:server"
+            }
+        ],
+        [
+            {
+                "name": "types-client",
+                "folder": ".",
+                "package_manager": "bun",
+                "build_script": "types:client"
+            },
+            {
+                "name": "types-server",
+                "folder": ".",
+                "package_manager": "bun",
+                "build_script": "types:server"
+            }
+        ],
         {
             "name": "update-types",
             "folder": ".",
