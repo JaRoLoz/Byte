@@ -88,7 +88,7 @@ export class CModel extends ByteGameObject {
     /**
      * @returns Whether the model is valid
      */
-    public getIsValid = (): boolean => IsModelValid(this.getHash());
+    public getIsModelValid = (): boolean => IsModelValid(this.getHash());
 
     /**
      * @returns Whether the model is in the game's CD image
