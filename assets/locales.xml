@@ -2,17 +2,22 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.w3schools.com locales.xsd">
     <translation lang="en">
+        <!-- Logger traces -->
         <entry key="Logger.Trace.Info">INFO</entry>
         <entry key="Logger.Trace.Warn">WARN</entry>
         <entry key="Logger.Trace.Error">ERROR</entry>
         <entry key="Logger.Trace.Debug">DEBUG</entry>
+        <!-- Debugger -->
         <entry key="Shared.Debugger.ProductionWarning">The Debugger is only intended for development purposes. Please remove all breakpoints before deploying to production.</entry>
+        <!-- Server console -->
         <entry key="Server.Console.InitAlreadyCalled">The init function must be called only once.</entry>
         <entry key="Server.Console.ServerStarted">Byte server initialized!</entry>
+        <!-- Server deferrals -->
         <entry key="Server.Deferrals.Deferring">Deferring connection...</entry>
         <entry key="Server.Deferrals.Access.Rejected">You don't have permission to access the server.</entry>
         <entry key="Server.Deferrals.Discord.Rejected">You need to link your Discord account to FiveM to access the server.</entry>
         <entry key="Server.Deferrals.Steam.Rejected">You need to close Steam to access the server.</entry>
+        <!-- Client PlayerPed errors -->
         <entry key="Client.PlayerPed.HairColorError">Failed to get hair color</entry>
         <entry key="Client.PlayerPed.HighlightColorError">Failed to get hair highlight color</entry>
     </translation>
