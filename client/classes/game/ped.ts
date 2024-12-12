@@ -1,10 +1,22 @@
 import { Result, Ok, Err } from "../../shared/classes";
+import { IntRange } from "../../shared/types/generic";
 import { CEntity } from "./entity";
 import { CModel } from "./model";
+import { CPedConfigFlags } from "./pedConfigFlags";
 
 export class CPed extends CEntity {
     constructor(pedId: number) {
         super(pedId);
+    }
+
+    public setAccuracy = (accuracy: IntRange<0, 101>) => SetPedAccuracy(this.entityId, accuracy);
+    public getAccuracy = (): IntRange<0, 101> => GetPedAccuracy(this.entityId) as IntRange<0, 101>;
+    public setConfigFlag = (flag: CPedConfigFlags, value: boolean) => SetPedConfigFlag(this.entityId, flag, value);
+    public getConfigFlag = (flag: CPedConfigFlags): boolean => GetPedConfigFlag(this.entityId, flag, false);
+    public getMaxHealth = (): number => GetEntityMaxHealth(this.entityId);
+
+    public resurrect() {
+        ResurrectPed(this.entityId);
     }
 
     public override delete = () => DeletePed(this.entityId);
