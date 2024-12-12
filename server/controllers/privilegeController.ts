@@ -1,4 +1,5 @@
 import { DB } from "../database/db";
+import { getDBPrivileges } from "../database/privilegeController";
 import { Logger } from "../utils/logger";
 
 export enum Privilege {
@@ -25,28 +26,27 @@ export class PrivilegeController {
     }
 
     private reloadPrivileges = () => {
-        const [dbErr, dbResult] = DB.querySync("select * from privileges", []);
+        const [dbErr, dbResult] = getDBPrivileges();
 
         if (dbErr) {
             logger.error(`Failed to load privileges: ${dbResult}`);
             return;
         }
 
-        const privilegedUsers = dbResult.rows;
-
         this.privilegedUsers = {};
-        for (const user of privilegedUsers) {
+        for (const user of dbResult) {
             if (this.privilegedUsers[user.discord]) {
                 logger.warn(`Duplicate discord id found in privileges table: ${user.discord}`);
                 continue;
             }
 
-            if (Privilege[user.privilege] === undefined) {
+            const privilege = Privilege[user.privilege as keyof typeof Privilege];
+            if (privilege === undefined) {
                 logger.warn(`Invalid privilege level found in privileges table: ${user.privilege} (${user.discord})`);
                 continue;
             }
 
-            this.privilegedUsers[user.discord] = user.privilege;
+            this.privilegedUsers[user.discord] = privilege;
         }
     };
 
@@ -94,7 +94,7 @@ export class PrivilegeController {
 
     public hasPrivilege = (privilege: Privilege, target: Privilege) => {
         // prioritize safety
-        return (Privilege[privilege] || Privilege.NONE) >= (Privilege[target] || Privilege.GOD);
+        return (privilege || Privilege.NONE) >= (target || Privilege.GOD);
     };
 
     /** @noSelf **/
