@@ -59,7 +59,7 @@ declare global {
     };
 
     var Citizen: {
-        Await: <Args extends any[]>(promise: CfxPromise<Args>) => LuaMultiReturn<Args>;
+        Await: <Args extends any[]>(promise: CfxPromise<Args>) => Args;
         InvokeNative: <T extends any[] = any[]>(nativeHash: number, ...args: any[]) => LuaMultiReturn<T>;
         PointerValueInt: () => void;
         PointerValueIntInitialized: (n: any) => void;

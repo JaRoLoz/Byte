@@ -28,7 +28,7 @@ export class RPCController {
         const procedurePromise = promise.new();
         this.promises[procedure] = procedurePromise;
 
-        TriggerServerEvent(eventNames.get("Server.RPC.Call"), procedure, ...args);
+        TriggerServerEvent(eventNames.get("Server.RPC.Call"), procedure, args);
 
         return Citizen.Await<Args>(procedurePromise) as Args;
     };
