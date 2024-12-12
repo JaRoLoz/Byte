@@ -481,7 +481,7 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
     };
 
     public override asString(): string {
-        return `PlayerPed { source: ${this.source}, ped: ${this.getPed()}, model: ${this.getModel().getName()} }`;
+        return `PlayerPed { source: ${this.source}, ped: ${this.getPed()}, model: ${this.modelHash} }`;
     }
 }
 
