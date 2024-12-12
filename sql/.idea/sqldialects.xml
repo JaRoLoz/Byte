@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$/player.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/player_data.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/player_gang.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/player_job.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/player_skin.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

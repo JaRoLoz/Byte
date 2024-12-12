@@ -1,5 +1,6 @@
 import { Coords3 } from "../../utils";
 import { InventoryData } from "../inventory";
+import { PedData } from "../ped";
 import { PlayerGang, PlayerGender, PlayerJob } from "../player";
 
 export type DBPlayerData = {
@@ -20,4 +21,5 @@ export type DBPlayerInfo = {
     gangs: Array<PlayerGang>;
     position: Coords3;
     inventory: InventoryData;
+    pedData: PedData;
 };

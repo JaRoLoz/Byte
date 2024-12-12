@@ -115,6 +115,7 @@ export enum FaceFeature {
 }
 
 export type PedData = {
+    pedModel: number;
     components: Record<keyof typeof PedComponent, { drawable: number; texture: number }>
     faceFeatures: Record<keyof typeof FaceFeature, number>;
     props: Record<keyof typeof PedProps, { drawable: number; texture: number }>;

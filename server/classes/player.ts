@@ -5,7 +5,7 @@ import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
 import { EmptyOk, Err, Ok, Result } from "../shared/classes";
-import { DBPlayerInfo } from "../shared/types";
+import { DBPlayerInfo, PedData } from "../shared/types";
 import { savePlayerToDB } from "../database/player";
 import { TransactionResult } from "../database/db";
 import { UUID } from "../shared/utils";
@@ -20,6 +20,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
     private jobs: Array<PlayerJob>;
     private gangs: Array<PlayerGang>;
     private inventory: PlayerInventory;
+    private playerPedData: PedData;
 
     constructor(
         src: number,
@@ -28,7 +29,8 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         inventory: PlayerInventory,
         position: Vector4,
         jobs: Array<PlayerJob>,
-        gangs: Array<PlayerGang>
+        gangs: Array<PlayerGang>,
+        playerPedData: PedData
     ) {
         super(src);
         this.uuid = uuid;
@@ -37,6 +39,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         this.position = position;
         this.jobs = jobs;
         this.gangs = gangs;
+        this.playerPedData = playerPedData;
     }
 
     public getUuid = () => this.uuid;
@@ -51,6 +54,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
     public getGang = (gang: PlayerGang) => this.gangs.find(g => g.name === gang.name);
     public getJobIndex = (job: PlayerJob) => this.jobs.findIndex(j => j.name === job.name);
     public getGangIndex = (gang: PlayerGang) => this.gangs.findIndex(g => g.name === gang.name);
+    public getPlayerPedData = () => this.playerPedData;
 
     public setData = (data: PlayerData) => {
         this.data = data;
@@ -123,6 +127,12 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         return EmptyOk();
     };
 
+    public setPlayerPedData = (data: PedData) => {
+        this.playerPedData = data;
+        // this setter deserves its own event
+        TriggerClientEvent(eventNames.get("Client.Player.SetPlayerPedData"), this.getSrc(), data);
+    };
+
     /**
      * Emits a change to the client in order to update their local player's data.
      * @param key The key of the Player property that was changed.
@@ -145,7 +155,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         this.updatePosition();
         const data = this.toObject();
 
-        const [err, errors] = savePlayerToDB(data);
+        const [err, errors] = savePlayerToDB(this.getIdentifier("discord")!, data);
 
         if (err) {
             logger.error(`Failed to save player ${this.uuid} to database.`);
@@ -168,6 +178,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         jobs: this.jobs,
         gangs: this.gangs,
         position: this.position,
-        inventory: this.inventory.toObject()
+        inventory: this.inventory.toObject(),
+        pedData: this.playerPedData
     });
 }

@@ -71,17 +71,17 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
     };
 
     public getPedHeadBlendData = () => getPedHeadBlendData(this.getPed());
-    public setPedHeadBlendData = (
-        shapeFirst: number,
-        shapeSecond: number,
-        shapeThird: number,
-        skinFirst: number,
-        skinSecond: number,
-        skinThird: number,
-        shapeMix: number,
-        skinMix: number,
-        thirdMix: number
-    ) =>
+    public setPedHeadBlendData = ({
+        shapeFirst,
+        shapeSecond,
+        shapeThird,
+        skinFirst,
+        skinSecond,
+        skinThird,
+        shapeMix,
+        skinMix,
+        thirdMix
+    }: PedHeadBlendData) =>
         SetPedHeadBlendData(
             this.getPed(),
             shapeFirst,
@@ -98,7 +98,7 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
     public refreshPedHeadBlendData = () => {
         const { shapeFirst, shapeMix, shapeSecond, shapeThird, skinFirst, skinMix, skinSecond, skinThird, thirdMix } =
             this.getPedHeadBlendData();
-        this.setPedHeadBlendData(
+        this.setPedHeadBlendData({
             shapeFirst,
             shapeSecond,
             shapeThird,
@@ -108,7 +108,7 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
             shapeMix,
             skinMix,
             thirdMix
-        );
+        });
     };
     public getPedHeadBlendsHeadsByGender = (gender: PlayerGender): Array<number> => {
         if (gender === PlayerGender.UNKNOWN) return [];
@@ -470,6 +470,7 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
         }
 
         return {
+            pedModel: this.modelHash,
             components: this.getPedComponents(),
             faceFeatures: this.getPedFaceFeatures(),
             props: this.getPedProps(),
@@ -478,6 +479,37 @@ export class PlayerPed extends CPed implements IObjectifiable<PedData> {
             hairColor,
             highlightColor
         };
+    };
+
+    public setPedData = (data: PedData) => {
+        this.setPedModel(data.pedModel);
+        this.setPedHeadBlendData(data.headBlend);
+        this.setHairColor(data.hairColor, data.highlightColor);
+        Object.entries(data.components).forEach(([key, value]) => {
+            this.setCurrentDrawableVariation(
+                PedComponent[key as keyof typeof PedComponent],
+                value.drawable,
+                value.texture
+            );
+        });
+        Object.entries(data.props).forEach(([key, value]) => {
+            this.setPropDrawableVariation(PedProps[key as keyof typeof PedProps], value.drawable, value.texture);
+        });
+        Object.entries(data.faceFeatures).forEach(([key, value]) => {
+            this.setPedFaceFeature(FaceFeature[key as keyof typeof FaceFeature], value);
+        });
+        Object.entries(data.headOverlays).forEach(([key, value]) => {
+            this.setPedHeadOverlay(
+                PedHeadOverlay[key as keyof typeof PedHeadOverlay],
+                value.overlayValue,
+                value.overlayOpacity
+            );
+            this.setPedHeadOverlayColor(
+                PedHeadOverlay[key as keyof typeof PedHeadOverlay],
+                value.firstColour,
+                value.secondColour
+            );
+        });
     };
 
     public override asString(): string {

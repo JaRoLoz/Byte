@@ -4,8 +4,7 @@ import closeServer from "./closeServer";
 import openServer from "./openServer";
 import removePrivilege from "./removePrivilege";
 import testLoadPlayer from "./testLoadPlayer";
-import testPlayer from "./testPlayer";
 
-const commands = [addPrivilege, removePrivilege, closeServer, openServer, testPlayer, testLoadPlayer];
+const commands = [addPrivilege, removePrivilege, closeServer, openServer, testLoadPlayer];
 
 commands.forEach(command => CommandController.registerCommand(command));
