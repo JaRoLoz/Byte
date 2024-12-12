@@ -19,6 +19,13 @@ jobs:
       - name: Build with jade
         run: ./jade .
 
+      - name: Build SQL script
+        run: |
+          cd sql
+          bun i
+          bun .
+          mv ./full-schema.sql ../Byte.sql
+
       - name: Cleanup
         run: |
           bun run clean-setup
