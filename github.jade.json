@@ -1,0 +1,84 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JaRoLoz/jade/master/jade.schema.json",
+    "js_build": [
+        {
+            "name": "setup-symlink",
+            "folder": ".",
+            "package_manager": "pnpm",
+            "build_script": "setup"
+        },
+        [
+            {
+                "name": "build-client",
+                "folder": ".",
+                "package_manager": "pnpm",
+                "build_script": "build:client"
+            },
+            {
+                "name": "build-server",
+                "folder": ".",
+                "package_manager": "pnpm",
+                "build_script": "build:server"
+            }
+        ],
+        [
+            {
+                "name": "types-client",
+                "folder": ".",
+                "package_manager": "pnpm",
+                "build_script": "types:client"
+            },
+            {
+                "name": "types-server",
+                "folder": ".",
+                "package_manager": "pnpm",
+                "build_script": "types:server"
+            }
+        ],
+        {
+            "name": "update-types",
+            "folder": ".",
+            "package_manager": "pnpm",
+            "build_script": "update-types"
+        }
+    ],
+    "bundle": [
+        {
+            "name": "bundle-client",
+            "output": "./build/client_bundle.lua",
+            "source_dir": "./build/client",
+            "entrypoint": "./build/client/index.lua"
+        },
+        {
+            "name": "bundle-server",
+            "output": "./build/server_bundle.lua",
+            "source_dir": "./build/server",
+            "entrypoint": "./build/server/index.lua"
+        }
+    ],
+    "manifest": {
+        "fx_version": "cerulean",
+        "game": "gta5",
+        "author": "Zurky",
+        "description": "Batteries included framework for the Cfx.re platform.",
+        "version": "0.2.1",
+        "client_scripts": [
+            "lua/client/*.lua",
+            "build/client_bundle.lua"
+        ],
+        "server_scripts": [
+            "lua/server/*.lua",
+            "build/server_bundle.lua"
+        ],
+        "shared_scripts": [
+            "lua/shared/*.lua"
+        ],
+        "files": [
+            "assets/*"
+        ],
+        "dependencies": [
+            "Byte-pg"
+        ],
+        "lua54": true
+    }
+}
