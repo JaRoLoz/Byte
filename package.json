@@ -1,8 +1,10 @@
 {
+    "name": "@byte-fw/byte",
+    "version": "0.2.7",
     "scripts": {
         "setup": "symlink-dir ./shared ./client/shared && symlink-dir ./shared ./server/shared",
         "clean-setup": "rimraf ./client/shared && rimraf ./client/.ignored_shared && rimraf ./server/.ignored_shared && rimraf ./server/shared && rimraf ./docs",
-        "clean-build": "cd build && mv ./client/byte-client.d.ts . && mv ./server/byte-server.d.ts . && rimraf -rf client/ && rimraf -rf server/",
+        "clean-build": "cd build && cp ./client/byte-client.d.ts . && cp ./server/byte-server.d.ts . && rimraf -rf client/ && rimraf -rf server/",
         "clean-all": "npm run clean-setup && rimraf ./build",
         "format:client": "prettier --write \"./client\"",
         "format:server": "prettier --write \"./server\"",
@@ -30,5 +32,22 @@
         "typedoc-github-theme": "0.1.2",
         "typescript": "5.4.3",
         "typescript-to-fivem-lua": "1.27.0"
-    }
+    },
+    "files": [
+        "build/byte-client.d.ts",
+        "build/byte-server.d.ts"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Byte-fw/Byte.git"
+    },
+    "keywords": [
+        "byte",
+        "fivem",
+        "redm",
+        "cfx.re",
+        "lua",
+        "typescript",
+        "tstl"
+    ]
 }
