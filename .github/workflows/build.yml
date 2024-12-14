@@ -43,7 +43,7 @@ jobs:
       - name: Publish types to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bun publish
+        run: npm publish
 
       - name: Package assets
         run: zip -r Byte.zip *
