@@ -7,7 +7,7 @@ import { XMLSearchNode } from "./xml";
 export class ConfigController {
     /** @noSelf **/
     private static instance: ConfigController;
-    
+
     private items: Record<string, Item>;
     private inventorySlots: number;
     private maxPlayerWeight: number;
@@ -16,23 +16,23 @@ export class ConfigController {
     private constructor() {
         const xmlRootNode = XML.decode(LoadResourceFile(GetCurrentResourceName(), "assets/config.xml")).children[0];
         const xml = new XMLSearchNode(xmlRootNode);
-        
+
         const globalNode = xml.search({ tag: "global" })[0];
         const coreNode = xml.search({ tag: "core" })[0];
         const inventoryNode = coreNode.search({ tag: "inventory" })[0];
 
         this.items = inventoryNode
-        .search({ tag: "items" })[0]
-        .search({ tag: "item" })
-        .map(item => {
-            const name = item.search({ tag: "name" })[0].asText();
-            const label = item.search({ tag: "label" })[0].asText();
-            const description = item.search({ tag: "description" })[0].asText();
-            const weight = Number(item.search({ tag: "weight" })[0].asText());
-            const unique = item.search({ tag: "unique" })[0].asText() === "true";
-            return new Item(name, label, description, weight, unique);
-        })
-        .reduce((acc, item) => ({ ...acc, [item.getName()]: item }), {});
+            .search({ tag: "items" })[0]
+            .search({ tag: "item" })
+            .map(item => {
+                const name = item.search({ tag: "name" })[0].asText();
+                const label = item.search({ tag: "label" })[0].asText();
+                const description = item.search({ tag: "description" })[0].asText();
+                const weight = Number(item.search({ tag: "weight" })[0].asText());
+                const unique = item.search({ tag: "unique" })[0].asText() === "true";
+                return new Item(name, label, description, weight, unique);
+            })
+            .reduce((acc, item) => ({ ...acc, [item.getName()]: item }), {});
 
         this.inventorySlots = Number(inventoryNode.search({ tag: "inventorySlots" })[0].asText());
         this.maxPlayerWeight = Number(inventoryNode.search({ tag: "maxPlayerWeight" })[0].asText());

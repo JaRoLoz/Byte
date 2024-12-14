@@ -18,6 +18,7 @@ import { ExportedClass } from "../shared/classes/exported";
 import { RPCController } from "../controllers/rpcController";
 import { EventNameController } from "../shared/classes/eventNameController";
 import { Debugger } from "../shared/classes/debugger";
+import * as database from "../database";
 
 export type ByteExport = {
     classes: {
@@ -39,6 +40,7 @@ export type ByteExport = {
         EnvManager: typeof EnvManager;
         Logger: ExportedClass<typeof Logger>;
     };
+    database: typeof database;
     shared: {
         interfaces: typeof interfaces;
         classes: {
@@ -75,6 +77,7 @@ const exporterFunction = (): ByteExport => ({
         EnvManager,
         Logger: new ExportedClass(Logger)
     },
+    database: database,
     shared: {
         interfaces,
         utils,

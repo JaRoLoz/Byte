@@ -4,7 +4,7 @@ import { Logger } from "../utils/logger";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
-import { EmptyOk, Err, Ok, Result } from "../shared/classes";
+import { ConfigController, EmptyOk, Err, Ok, Result, Timestamp } from "../shared/classes";
 import { DBPlayerInfo, PedData } from "../shared/types";
 import { savePlayerToDB } from "../database/player";
 import { TransactionResult } from "../database/db";
@@ -12,6 +12,7 @@ import { UUID } from "../shared/utils";
 
 const logger = new Logger("Player");
 const eventNames = getEventNames();
+const config = ConfigController.getInstance();
 
 export class Player extends User implements IObjectifiable<DBPlayerInfo> {
     private uuid: UUID;
@@ -21,6 +22,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
     private gangs: Array<PlayerGang>;
     private inventory: PlayerInventory;
     private playerPedData: PedData;
+    private isReady: boolean;
 
     constructor(
         src: number,
@@ -40,6 +42,7 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         this.jobs = jobs;
         this.gangs = gangs;
         this.playerPedData = playerPedData;
+        this.isReady = false;
     }
 
     public getUuid = () => this.uuid;
@@ -127,10 +130,15 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         return EmptyOk();
     };
 
-    public setPlayerPedData = (data: PedData) => {
+    public setPlayerPedData = (data: PedData, syncWithClient: boolean = true) => {
         this.playerPedData = data;
-        // this setter deserves its own event
-        TriggerClientEvent(eventNames.get("Client.Player.SetPlayerPedData"), this.getSrc(), data);
+        if (syncWithClient) {
+            /**
+             * this setter deserves its own event
+             * because the client must call Player.ped.setPedData to change the ped appearance
+             */
+            TriggerClientEvent(eventNames.get("Client.Player.SetPlayerPedData"), this.getSrc(), data);
+        }
     };
 
     /**
@@ -181,4 +189,42 @@ export class Player extends User implements IObjectifiable<DBPlayerInfo> {
         inventory: this.inventory.toObject(),
         pedData: this.playerPedData
     });
+
+    public override asString(): string {
+        return `Player { uuid: ${this.uuid}, src: ${this.getSrc()} }`;
+    }
+
+    public override asJSON(): string {
+        return JSON.stringify({ src: this.getSrc(), data: this.toObject() });
+    }
+
+    /**
+     * Emits the PlayerReady event to the client and makes the client load the instance of the player.
+     * It is used as a sort of login method.
+     * **Should only be called once throught the player's lifecycle**
+     * @param player The player to emit the event to.
+     * @noSelf
+     */
+    public static emitPlayerReady = (player: Player) => {
+        if (player.isReady) {
+            logger.warn(`Ignoring PlayerReady event for player ${player.getUuid()} because it was already emitted.`);
+            return;
+        }
+        TriggerClientEvent(eventNames.get("Client.Player.PlayerReadyData"), player.getSrc(), player.toObject());
+        player.isReady = true;
+    };
+
+    /** @noSelf **/
+    public static fromObject = (src: number, data: DBPlayerInfo): Player => {
+        return new Player(
+            src,
+            data.uuid,
+            { ...data.data, birthdate: new Timestamp(data.data.birthdate) },
+            PlayerInventory.fromObject(src, data.inventory, config.getInventorySlots(), config.getMaxPlayerWeight()),
+            data.position,
+            data.jobs,
+            data.gangs,
+            data.pedData
+        );
+    };
 }

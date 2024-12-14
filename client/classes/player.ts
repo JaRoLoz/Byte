@@ -4,6 +4,8 @@ import { getEventNames } from "../shared/classes/eventNameController";
 import { UUID } from "../shared/utils";
 import { Optional } from "../shared/classes";
 import { PlayerPed } from "./playerPed";
+import { PedData } from "../shared/types";
+import { IntRange } from "../shared/types/generic";
 
 const eventNames = getEventNames();
 
@@ -23,18 +25,28 @@ export class Player {
         playerData: PlayerData,
         inventory: PlayerInventory,
         jobs: Array<PlayerJob>,
-        gangs: Array<PlayerGang>
+        gangs: Array<PlayerGang>,
+        pedData: PedData,
+        position: Vector4
     ) {
         this.uuid = uuid;
         this.data = playerData;
         this.inventory = inventory;
         this.jobs = jobs;
         this.gangs = gangs;
-        this.ped = new PlayerPed(-1);
+        this.ped = new PlayerPed();
+
+        this.ped.setPosition(position);
+        this.ped.setHeading(position.w as IntRange<0, 361>);
+        this.ped.setPedData(pedData);
 
         RegisterNetEvent(eventNames.get("Client.Player.SetPlayerField"), (key: keyof typeof this, value: any) => {
             this[key] = value;
         });
+
+        RegisterNetEvent(eventNames.get("Client.Player.SetPlayerPedData"), (data: PedData) =>
+            this.ped.setPedData(data)
+        );
     }
 
     public getUuid = () => this.uuid;
@@ -54,7 +66,12 @@ export class Player {
     public static getInstance = (): Optional<Player> =>
         Player.instance ? Optional.Some(Player.instance) : Optional.None();
 
-    /** @noSelf **/
+    /**
+     * Static method called by the server to set the instance of the player with the initial player data
+     * **Never call this function manually**
+     * @param instance Instance of the player
+     * @noSelf
+     */
     public static setInstance = (instance: Player) => {
         Player.instance = instance;
         TriggerEvent(eventNames.get("Client.Player.OnPlayerReady"), instance);
@@ -63,7 +80,7 @@ export class Player {
     /** @noSelf **/
     public static onPlayerReady = (cb: (player: Player) => void) => {
         if (Player.instance) cb(Player.instance);
-        else RegisterNetEvent(eventNames.get("Client.Player.OnPlayerReady"), cb);
+        else AddEventHandler(eventNames.get("Client.Player.OnPlayerReady"), cb);
     };
 
     /** @noSelf **/

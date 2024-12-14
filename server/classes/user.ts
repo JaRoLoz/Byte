@@ -1,9 +1,11 @@
 import { Privilege, PrivilegeController } from "../controllers/privilegeController";
+import { ByteGameObject } from "../shared/classes";
 
-export class User {
+export class User extends ByteGameObject {
     private src: number;
 
     constructor(src: number) {
+        super();
         this.src = src;
     }
 
@@ -40,4 +42,12 @@ export class User {
     };
 
     public getSrc = () => this.src;
+
+    public override asString(): string {
+        return `User { src: ${this.src} }`;
+    }
+
+    public asJSON(): string {
+        return JSON.stringify({ src: this.src });
+    }
 }

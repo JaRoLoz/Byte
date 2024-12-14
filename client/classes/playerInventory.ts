@@ -5,6 +5,7 @@ import { Inventory } from "./inventory";
 import { InventorySlot } from "./inventorySlot";
 
 const eventNames = getEventNames();
+const items = ConfigController.getInstance().getItems();
 
 export class PlayerInventory extends Inventory {
     constructor(data: InventorySlot[], maxWeight: number) {
@@ -22,4 +23,11 @@ export class PlayerInventory extends Inventory {
             this.slots = slots;
         });
     }
+
+    /** @noSelf **/
+    public static fromObject = (data: InventoryData, maxWeight: number) =>
+        new PlayerInventory(
+            data.map(({ item, amount, info }) => new InventorySlot(item ? items[item] : undefined, amount, info)),
+            maxWeight
+        );
 }

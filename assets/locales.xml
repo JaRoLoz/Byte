@@ -21,6 +21,5 @@
         <entry key="Client.PlayerPed.HairColorError">Failed to get hair color</entry>
         <entry key="Client.PlayerPed.HighlightColorError">Failed to get hair highlight color</entry>
         <!-- Client events -->
-        <entry key="Client.Events.Player.SetPlayerPedData.NoPlayer">Failed to set player ped data because player was not ready</entry>
     </translation>
 </translations>

@@ -12,18 +12,22 @@ export class PlayerController {
 
     public getPlayer = (src: number) => this.players[src];
     public getPlayers = () => this.players;
-    public addPlayer = (src: number, player: Player) => (this.players[src] = player);
+    public addPlayer = (src: number, player: Player) => {
+        this.players[src] = player;
+        logger.debug(`Player ${src} (${player.getUuid()}) added to the controller.`);
+    };
     public removePlayer = (src: number) => {
+        logger.debug(`Player ${src} (${this.players[src].getUuid()}) removed from the controller.`);
         this.players[src].save();
         delete this.players[src];
-        logger.info(`Player ${GetPlayerName(src)} (${src}) exited, saving...`);
     };
 
-    public onPlayerDropped = (reason: string) => {
+    public savePlayersAsync = () => Object.values(this.players).forEach(player => CreateThread(() => player.save()));
+
+    public onPlayerDropped = (_reason: string) => {
         const src = source;
         if (this.players[src] === undefined) return;
         this.removePlayer(src);
-        logger.debug(`Player ${GetPlayerName(src)} (${src}) dropped: ${reason}`);
     };
 
     /** @noSelf **/
