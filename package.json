@@ -4,7 +4,7 @@
     "scripts": {
         "setup": "symlink-dir ./shared ./client/shared && symlink-dir ./shared ./server/shared",
         "clean-setup": "rimraf ./client/shared && rimraf ./client/.ignored_shared && rimraf ./server/.ignored_shared && rimraf ./server/shared && rimraf ./docs",
-        "clean-build": "cd build && cp ./client/byte-client.d.ts . && cp ./server/byte-server.d.ts . && rimraf -rf client/ && rimraf -rf server/",
+        "clean-build": "cp ./build/client/byte-client.d.ts . && cp ./build/server/byte-server.d.ts . && rimraf -rf ./build/client/ && rimraf -rf ./build/server/",
         "clean-all": "npm run clean-setup && rimraf ./build",
         "format:client": "prettier --write \"./client\"",
         "format:server": "prettier --write \"./server\"",
