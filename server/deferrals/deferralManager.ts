@@ -4,7 +4,7 @@ import { Logger } from "../utils/logger";
 import discordDeferral from "./discordDeferral";
 import steamDeferral from "./steamDeferral";
 
-type KickFunction = (reason: string) => void;
+type KickFunction = (this: void, reason: string) => void;
 
 /**
  * Type of a deferral function that is called when a player is connecting.

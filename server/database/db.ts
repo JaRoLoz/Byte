@@ -13,7 +13,7 @@ export type TransactionResult<T> = Result<T, Array<TransactionError>>;
  * @noSelf
  */
 export class DB {
-    public static ready = (cb: (result: Result<null, string>) => void) => {
+    public static ready = (cb: (this: void, result: Result<null, string>) => void) => {
         PG.Ready(err => {
             if (err) cb(Err(err));
             else cb(Ok(null));
@@ -26,7 +26,7 @@ export class DB {
         return Ok(null);
     };
 
-    public static query = (query: string, args: any[], cb: (result: Result<DBResult, string>) => void) => {
+    public static query = (query: string, args: any[], cb: (this: void, result: Result<DBResult, string>) => void) => {
         PG.Query(query, args, (rows, count, error) => {
             if (error) cb(Err(error));
             else cb(Ok({ rows, count }));

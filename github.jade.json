@@ -61,7 +61,7 @@
         "game": "gta5",
         "author": "Zurky",
         "description": "Batteries included framework for the Cfx.re platform.",
-        "version": "0.3.3",
+        "version": "0.3.4",
         "client_scripts": [
             "lua/client/*.lua",
             "build/client_bundle.lua"
