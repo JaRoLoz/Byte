@@ -2,7 +2,7 @@ fx_version "cerulean"
 game "gta5"
 author "Zurky"
 description "Batteries included framework for the Cfx.re platform."
-version "0.3.2"
+version "0.3.3"
 client_scripts {
     "lua/client/*.lua",
     "build/client_bundle.lua",

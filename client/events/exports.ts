@@ -54,6 +54,7 @@ export type ByteExport = {
     utils: {
         Logger: ExportedClass<typeof Logger>;
         EnvManager: typeof EnvManager;
+        XML: typeof XML;
     };
     shared: {
         interfaces: typeof sharedInterfaces;
@@ -97,7 +98,8 @@ const exporterFunction = (): ByteExport => ({
     },
     utils: {
         Logger: new ExportedClass(Logger),
-        EnvManager
+        EnvManager,
+        XML
     },
     shared: {
         interfaces: sharedInterfaces,

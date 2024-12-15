@@ -39,6 +39,7 @@ export type ByteExport = {
     utils: {
         EnvManager: typeof EnvManager;
         Logger: ExportedClass<typeof Logger>;
+        XML: typeof XML;
     };
     database: typeof database;
     shared: {
@@ -75,7 +76,8 @@ const exporterFunction = (): ByteExport => ({
     },
     utils: {
         EnvManager,
-        Logger: new ExportedClass(Logger)
+        Logger: new ExportedClass(Logger),
+        XML
     },
     database: database,
     shared: {
