@@ -66,6 +66,9 @@ export class CEntity extends CModel implements INetworkeable {
     public getVisible = (): boolean => IsEntityVisible(this.entityId) && true;
     public setVisible = (value: boolean) => SetEntityVisible(this.entityId, value, false);
 
+    public freeze = (value: boolean) => FreezeEntityPosition(this.entityId, value && true);
+    public isFrozen = (): boolean => IsEntityPositionFrozen(this.entityId);
+
     public getNetworkId = (): number => NetworkGetNetworkIdFromEntity(this.entityId);
 
     public delete = () => DeleteEntity(this.entityId);

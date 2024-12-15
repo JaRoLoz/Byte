@@ -17,9 +17,10 @@ import {
     CObject,
     CPed,
     CVehicle,
-    PlayerPed,
     Texture,
-    TextureDictionary
+    TextureDictionary,
+    ClothedPed,
+    PlayerPed
 } from "../classes";
 import * as interfaces from "./exportedInterfaces";
 import * as types from "./exportedTypes";
@@ -35,6 +36,7 @@ export type ByteExport = {
         PlayerInventory: ExportedClass<typeof PlayerInventory>;
         Player: ExportedClass<typeof Player>;
         PlayerPed: ExportedClass<typeof PlayerPed>;
+        ClothedPed: ExportedClass<typeof ClothedPed>;
         game: {
             CModel: ExportedClass<typeof CModel>;
             CEntity: ExportedClass<typeof CEntity>;
@@ -78,6 +80,7 @@ const exporterFunction = (): ByteExport => ({
         PlayerInventory: new ExportedClass(PlayerInventory),
         Player: new ExportedClass(Player),
         PlayerPed: new ExportedClass(PlayerPed),
+        ClothedPed: new ExportedClass(ClothedPed),
         game: {
             CModel: new ExportedClass(CModel),
             CEntity: new ExportedClass(CEntity),

@@ -17,9 +17,9 @@
         <entry key="Server.Deferrals.Access.Rejected">You don't have permission to access the server.</entry>
         <entry key="Server.Deferrals.Discord.Rejected">You need to link your Discord account to FiveM to access the server.</entry>
         <entry key="Server.Deferrals.Steam.Rejected">You need to close Steam to access the server.</entry>
-        <!-- Client PlayerPed errors -->
-        <entry key="Client.PlayerPed.HairColorError">Failed to get hair color</entry>
-        <entry key="Client.PlayerPed.HighlightColorError">Failed to get hair highlight color</entry>
+        <!-- Client ClothedPed & PlayerPed errors -->
+        <entry key="Client.ClothedPed.HairColorError">Failed to get hair color</entry>
+        <entry key="Client.ClothedPed.HighlightColorError">Failed to get hair highlight color</entry>
         <!-- Client events -->
     </translation>
 </translations>

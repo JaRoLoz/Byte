@@ -9,7 +9,7 @@ import { IntRange } from "../shared/types/generic";
 
 const eventNames = getEventNames();
 
-export class Player {
+export class Player extends PlayerPed {
     /** @noSelf **/
     private static instance: Player | undefined = undefined;
 
@@ -29,6 +29,7 @@ export class Player {
         pedData: PedData,
         position: Vector4
     ) {
+        super();
         this.uuid = uuid;
         this.data = playerData;
         this.inventory = inventory;
@@ -52,7 +53,6 @@ export class Player {
     public getUuid = () => this.uuid;
     public getData = () => this.data;
     public getInventory = () => this.inventory;
-    public getPed = () => this.ped;
     public getJobs = () => this.jobs;
     public getGangs = () => this.gangs;
     public hasJob = (job: PlayerJob) => this.jobs.find(j => j.name === job.name) !== undefined;
