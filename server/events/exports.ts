@@ -1,7 +1,3 @@
-import * as consts from "../shared/consts";
-import * as interfaces from "../shared/interfaces";
-import { ByteGameObject, ConfigController, Item, Translator, XMLSearchNode } from "../shared/classes";
-import * as utils from "../shared/utils";
 import { Inventory } from "../classes/inventory";
 import { InventorySlot } from "../classes/inventorySlot";
 import { Player } from "../classes/player";
@@ -16,9 +12,8 @@ import { EnvManager } from "../utils/env";
 import { Logger } from "../utils/logger";
 import { ExportedClass } from "../shared/classes/exported";
 import { RPCController } from "../controllers/rpcController";
-import { EventNameController } from "../shared/classes/eventNameController";
-import { Debugger } from "../shared/classes/debugger";
 import * as database from "../database";
+import { ByteSharedExport, sharedExport } from "../shared/byteSharedExport";
 
 export type ByteExport = {
     classes: {
@@ -39,23 +34,9 @@ export type ByteExport = {
     utils: {
         EnvManager: typeof EnvManager;
         Logger: ExportedClass<typeof Logger>;
-        XML: typeof XML;
     };
     database: typeof database;
-    shared: {
-        interfaces: typeof interfaces;
-        classes: {
-            ByteGameObject: typeof ByteGameObject;
-            ConfigController: typeof ConfigController;
-            Item: ExportedClass<typeof Item>;
-            Translator: ExportedClass<typeof Translator>;
-            XMLSearchNode: ExportedClass<typeof XMLSearchNode>;
-            EventNameController: ExportedClass<typeof EventNameController>;
-            Debugger: ExportedClass<typeof Debugger>;
-        };
-        utils: typeof utils;
-        consts: typeof consts;
-    };
+    shared: ByteSharedExport;
 };
 
 const exporterFunction = (): ByteExport => ({
@@ -77,23 +58,9 @@ const exporterFunction = (): ByteExport => ({
     utils: {
         EnvManager,
         Logger: new ExportedClass(Logger),
-        XML
     },
     database: database,
-    shared: {
-        interfaces,
-        utils,
-        consts,
-        classes: {
-            ByteGameObject,
-            ConfigController,
-            Item: new ExportedClass(Item),
-            Translator: new ExportedClass(Translator),
-            XMLSearchNode: new ExportedClass(XMLSearchNode),
-            EventNameController: new ExportedClass(EventNameController),
-            Debugger: new ExportedClass(Debugger)
-        }
-    }
+    shared: sharedExport
 });
 
 exports("Import", exporterFunction);

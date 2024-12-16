@@ -1,7 +1,3 @@
-import * as consts from "../shared/consts";
-import * as sharedInterfaces from "../shared/interfaces";
-import { ConfigController, Item, Translator, XMLSearchNode, ByteGameObject } from "../shared/classes";
-import * as utils from "../shared/utils";
 import { RPCController } from "../controllers/rpcController";
 import { Logger } from "../utils/logger";
 import { EnvManager } from "../utils/env";
@@ -24,8 +20,7 @@ import {
 } from "../classes";
 import * as interfaces from "./exportedInterfaces";
 import * as types from "./exportedTypes";
-import { EventNameController } from "../shared/classes/eventNameController";
-import { Debugger } from "../shared/classes/debugger";
+import { ByteSharedExport, sharedExport } from "../shared/byteSharedExport";
 
 export type ByteExport = {
     interfaces: typeof interfaces;
@@ -56,20 +51,7 @@ export type ByteExport = {
         EnvManager: typeof EnvManager;
         XML: typeof XML;
     };
-    shared: {
-        interfaces: typeof sharedInterfaces;
-        utils: typeof utils;
-        consts: typeof consts;
-        classes: {
-            ByteGameObject: typeof ByteGameObject;
-            ConfigController: typeof ConfigController;
-            Item: ExportedClass<typeof Item>;
-            Translator: ExportedClass<typeof Translator>;
-            XMLSearchNode: ExportedClass<typeof XMLSearchNode>;
-            EventNameController: ExportedClass<typeof EventNameController>;
-            Debugger: ExportedClass<typeof Debugger>;
-        };
-    };
+    shared: ByteSharedExport;
 };
 
 const exporterFunction = (): ByteExport => ({
@@ -101,20 +83,7 @@ const exporterFunction = (): ByteExport => ({
         EnvManager,
         XML
     },
-    shared: {
-        interfaces: sharedInterfaces,
-        utils,
-        consts,
-        classes: {
-            ByteGameObject,
-            ConfigController,
-            Item: new ExportedClass(Item),
-            Translator: new ExportedClass(Translator),
-            XMLSearchNode: new ExportedClass(XMLSearchNode),
-            EventNameController: new ExportedClass(EventNameController),
-            Debugger: new ExportedClass(Debugger)
-        }
-    }
+    shared: sharedExport
 });
 
 exports("Import", exporterFunction);
