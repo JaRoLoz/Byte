@@ -10,7 +10,7 @@ Byte is framework for the [Cfx.re](https://github.com/JaRoLoz/jade) plattform [F
 
 # Building
 
-Once you have [jade](https://github.com/JaRoLoz/jade) installed, simply navigate to the framework's root directory and execute `jade .`. Make sure to have bun installed. By default the build in performed by [bun](https://bun.sh/), if you don't want to use bun simply replace the `package_manager` key in every build step inside the `jade.json` file with your preferred node package manager, e.g. [pnpm](https://pnpm.io/es/).
+Once you have [jade](https://github.com/JaRoLoz/jade) installed, simply navigate to the framework's root directory and execute `jade .`. Make sure to have [bun](https://bun.sh/) installed. By default the build is performed using [bun](https://bun.sh/), if you don't want to use bun simply replace the `package_manager` key in every build step inside the `jade.json` file with your preferred node package manager, e.g. [pnpm](https://pnpm.io/es/).
 
 # Docs
 
