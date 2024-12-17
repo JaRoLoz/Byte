@@ -23,7 +23,7 @@ jobs:
           unzip -j ./jade_linux_x86_64.zip
 
       - name: Build with jade
-        run: ./jade . --env github
+        run: ./jade . --package-manager pnpm
 
       - name: Build SQL script
         run: |
@@ -39,6 +39,7 @@ jobs:
           rm -f jade_linux_x86_64.zip
           rm -f jade
           rm -rf node_modules
+          rm -rf sql/node_modules
 
       - name: Publish types to NPM
         env:
