@@ -4,7 +4,7 @@
 
 # Byte
 
-Byte is framework for the [Cfx.re](https://github.com/JaRoLoz/jade) plattform [FiveM](https://fivem.net/). It is written in TypeScript and transpiled to lua using a [fork](https://github.com/JaRoLoz/TypeScriptToFiveMLua) of [tstl](https://typescripttolua.github.io/). The whole framework is stiched together using the [jade](https://github.com/JaRoLoz/jade) build tool.
+Byte is a framework for the [Cfx.re](https://github.com/JaRoLoz/jade) plattform [FiveM](https://fivem.net/). It is written in TypeScript and transpiled to lua using a [fork](https://github.com/JaRoLoz/TypeScriptToFiveMLua) of [tstl](https://typescripttolua.github.io/). The whole framework is stiched together using the [jade](https://github.com/JaRoLoz/jade) build tool.
 
 [Discord server](https://discord.gg/SNY7QFRup5)
 
