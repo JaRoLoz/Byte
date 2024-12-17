@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/JaRoLoz/jade/refs/heads/main/jade.xsd">
+    <js_build name="setup-symlink">
+        <folder>.</folder>
+        <build_script>setup</build_script>
+        <install_packages>true</install_packages>
+    </js_build>
+    <parallel>
+        <js_build name="build-client">
+            <folder>.</folder>
+            <build_script>build:client</build_script>
+            <install_packages>false</install_packages>
+        </js_build>
+        <js_build name="build-server">
+            <folder>.</folder>
+            <build_script>build:server</build_script>
+            <install_packages>false</install_packages>
+        </js_build>
+    </parallel>
+    <parallel>
+        <bundle name="bundle-client">
+            <output>./build/client_bundle.lua</output>
+            <source_dir>./build/client</source_dir>
+            <entrypoint>./build/client/index.lua</entrypoint>
+        </bundle>
+        <bundle name="bundle-server">
+            <output>./build/server_bundle.lua</output>
+            <source_dir>./build/server</source_dir>
+            <entrypoint>./build/server/index.lua</entrypoint>
+        </bundle>
+        <js_build name="types-client">
+            <folder>.</folder>
+            <build_script>types:client</build_script>
+            <install_packages>false</install_packages>
+        </js_build>
+        <js_build name="types-server">
+            <folder>.</folder>
+            <build_script>types:server</build_script>
+            <install_packages>false</install_packages>
+        </js_build>
+    </parallel>
+    <manifest name="manifest-step">
+        <fx_version>cerulean</fx_version>
+        <game>gta5</game>
+        <author>Zurky</author>
+        <description>Batteries included framework for the Cfx.re platform.</description>
+        <version>0.3.5</version>
+        <client_scripts>
+            <client_script>lua/client/*.lua</client_script>
+            <client_script>build/client_bundle.lua</client_script>
+        </client_scripts>
+        <server_scripts>
+            <server_script>lua/server/*.lua</server_script>
+            <server_script>build/server_bundle.lua</server_script>
+        </server_scripts>
+        <shared_scripts>
+            <shared_script>lua/shared/*.lua</shared_script>
+        </shared_scripts>
+        <files>
+            <file>assets/*</file>
+        </files>
+        <dependencies>
+            <dependency>Byte-pg</dependency>
+        </dependencies>
+        <lua54 enable="true" />
+    </manifest>
+</config>
