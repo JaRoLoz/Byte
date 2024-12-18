@@ -1,6 +1,6 @@
 {
     "name": "@byte-fw/byte",
-    "version": "0.3.7",
+    "version": "0.3.9",
     "scripts": {
         "setup": "symlink-dir ./shared ./client/shared && symlink-dir ./shared ./server/shared",
         "clean-setup": "rimraf ./client/shared && rimraf ./client/.ignored_shared && rimraf ./server/.ignored_shared && rimraf ./server/shared && rimraf ./docs",

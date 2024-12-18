@@ -7,7 +7,7 @@ const eventNames = getEventNames();
  * @param src The player source that called the procedure.
  * @param cb The callback function to call when the procedure is done.
  */
-export type RPCCallback = (this: void, src: number, cb: (this: void, ...args: any[]) => void, ...args: any[]) => any;
+export type RPCCallback<T extends any[] = any> = (this: void, src: number, cb: (this: void, ...args: T) => void, ...args: any[]) => any;
 
 export class RPCController {
     /** @noSelf **/
@@ -30,7 +30,7 @@ export class RPCController {
         });
     }
 
-    public registerProcedure = (procedure: string, callback: RPCCallback) => {
+    public registerProcedure = <T extends any[] = any>(procedure: string, callback: RPCCallback<T>) => {
         this.callbacks[procedure] = callback;
     };
 
