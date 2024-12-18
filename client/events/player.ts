@@ -1,8 +1,10 @@
-import { Player, PlayerInventory } from "../classes";
-import { ConfigController, Timestamp } from "../shared/classes";
+import { Player } from "../classes/player";
+import { PlayerInventory } from "../classes/playerInventory";
+import { ConfigController } from "../shared/classes/configController";
+import { Timestamp } from "../shared/classes/timestamp";
 import { getEventNames } from "../shared/classes/eventNameController";
-import { DBPlayerInfo } from "../shared/types";
-import { parseVector4 } from "../shared/utils";
+import { DBPlayerInfo } from "../shared/types/db/player";
+import { parseVector4 } from "../shared/utils/parseCoords";
 import { Logger } from "../utils/logger";
 
 const eventNames = getEventNames();

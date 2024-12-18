@@ -1,4 +1,6 @@
-import { ByteGameObject, Optional, Result, Err, EmptyOk } from "../../shared/classes";
+import { Result, Err, EmptyOk } from "../../shared/classes/result";
+import { Optional } from "../../shared/classes/optional";
+import { ByteGameObject } from "../../shared/classes/byteObject";
 
 export class CModel extends ByteGameObject {
     protected modelHash: number;

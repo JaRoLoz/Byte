@@ -1,17 +1,18 @@
-import { Err, getTranslator, Ok, Result } from "../../shared/classes";
-import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../../shared/consts";
-import { IObjectifiable } from "../../shared/interfaces";
+import { Err, Ok, Result } from "../../shared/classes/result";
+import { getTranslator } from "../../shared/classes/translator";
+import { HEAD_BLEND_TEXTURE_AMOUNT, OVERLAY_TEXTURE_AMOUNT } from "../../shared/consts/ped";
+import { IObjectifiable } from "../../shared/interfaces/IObjectifiable";
 import {
     type PedHeadBlendData,
     FaceFeature,
     PedComponent,
-    PlayerGender,
     PedHeadOverlay,
     PedHeadOverlayData,
     PedProps,
     PedData,
     PedMaxValues
-} from "../../shared/types";
+} from "../../shared/types/ped";
+import { PlayerGender } from "../../shared/types/player";
 import { Logger } from "../../utils/logger";
 import { CPed } from "../game/ped";
 import { TattooManager } from "./tattoos";

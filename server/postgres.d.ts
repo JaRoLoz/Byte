@@ -1,3 +1,4 @@
+/* eslint no-var: off */
 declare var PG: {
     Ready: (cb: (err: string | null) => void) => void;
     ReadySync: () => string | null;

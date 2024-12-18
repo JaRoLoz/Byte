@@ -1,6 +1,9 @@
-import { Err, Ok, Optional, Result } from "../shared/classes";
-import { DBPlayerInfo, PlayerGang, PlayerJob } from "../shared/types";
-import { parseVector4, UUID } from "../shared/utils";
+import { Err, Ok, Result } from "../shared/classes/result";
+import { Optional } from "../shared/classes/optional";
+import { DBPlayerInfo } from "../shared/types/db/player";
+import { PlayerGang, PlayerJob } from "../shared/types/player";
+import { UUID } from "../shared/utils/uuid";
+import { parseVector4 } from "../shared/utils/parseCoords";
 import { DB, TransactionError, TransactionResult } from "./db";
 
 const je = (arg: any) => json.encode(arg);

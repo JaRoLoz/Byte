@@ -1,6 +1,6 @@
 import { Texture } from "./texture";
-import { TextureIndex, DuiHandle } from "../../shared/types";
-import { ByteGameObject } from "../../shared/classes";
+import { TextureIndex, DuiHandle } from "../../shared/types/texture";
+import { ByteGameObject } from "../../shared/classes/byteObject";
 
 export type TextureDictionaryTuple = [TextureIndex, Texture];
 

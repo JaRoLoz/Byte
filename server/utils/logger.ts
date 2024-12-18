@@ -1,4 +1,4 @@
-import { getTranslator } from "../shared/classes";
+import { getTranslator } from "../shared/classes/translator";
 import { MAX_TRACE_LENGTH } from "../shared/consts/logger";
 import { EnvManager } from "./env";
 

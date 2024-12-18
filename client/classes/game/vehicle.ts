@@ -1,5 +1,5 @@
-import { Result, Ok, Err } from "../../shared/classes";
-import { RGB } from "../../shared/types";
+import { Result, Ok, Err } from "../../shared/classes/result";
+import { RGB } from "../../shared/types/texture";
 import { IntRange } from "../../shared/types/generic";
 import { CEntity } from "./entity";
 import { CModel } from "./model";

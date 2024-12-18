@@ -1,5 +1,6 @@
 import { User } from "../classes/user";
-import { Err, getTranslator, Ok } from "../shared/classes";
+import { Err, Ok } from "../shared/classes/result";
+import { getTranslator } from "../shared/classes/translator";
 import { Deferral } from "./deferralManager";
 
 const translator = getTranslator();

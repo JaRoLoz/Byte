@@ -1,1 +1,2 @@
-export { CEntityType, TextureDictionaryTuple } from "../classes";
+export { CEntityType } from "../classes/game/entity";
+export { TextureDictionaryTuple } from "../classes/game/textureDictionary";

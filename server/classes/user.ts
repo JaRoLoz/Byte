@@ -1,5 +1,5 @@
 import { Privilege, PrivilegeController } from "../controllers/privilegeController";
-import { ByteGameObject } from "../shared/classes";
+import { ByteGameObject } from "../shared/classes/byteObject";
 
 export class User extends ByteGameObject {
     private src: number;
@@ -10,16 +10,16 @@ export class User extends ByteGameObject {
     }
 
     public getIdentifier = (identifier: string): string | undefined =>
-        //@ts-ignore
+        //@ts-expect-error - GetPlayerIdentifierByType is not defined
         GetPlayerIdentifierByType(this.src, identifier) || undefined;
 
     public getIdentifiers = () => {
-        //@ts-ignore
+        //@ts-expect-error - GetNumPlayerIdentifiers is not defined
         const identifiersLength = GetNumPlayerIdentifiers(this.src);
         const identifiers: Record<string, string> = {};
 
         for (let i = 0; i < identifiersLength; i++) {
-            //@ts-ignore
+            //@ts-expect-error - GetPlayerIdentifier is not defined
             const identifier = GetPlayerIdentifier(this.src, i);
             const identifierName = identifier.split(":")[0];
 

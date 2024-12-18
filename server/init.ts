@@ -1,6 +1,9 @@
 import { DB } from "./database/db";
 import { DeferralManager } from "./deferrals/deferralManager";
-import { ConfigController, Err, getTranslator, Ok, Result, XMLSearchNode } from "./shared/classes";
+import { Err, Ok, Result } from "./shared/classes/result";
+import { getTranslator } from "./shared/classes/translator";
+import { XMLSearchNode } from "./shared/classes/xml";
+import { ConfigController } from "./shared/classes/configController";
 import { EnvManager } from "./utils/env";
 import { Logger } from "./utils/logger";
 

@@ -1,4 +1,4 @@
-import { Result, Ok, Err } from "../../shared/classes";
+import { Result, Ok, Err } from "../../shared/classes/result";
 import { CEntity } from "./entity";
 import { CModel } from "./model";
 

@@ -1,6 +1,7 @@
 import { User } from "../classes/user";
 import { Deferral } from "../deferrals/deferralManager";
-import { Err, getTranslator, Ok } from "../shared/classes";
+import { Err, Ok } from "../shared/classes/result";
+import { getTranslator } from "../shared/classes/translator";
 import { EnvManager } from "../utils/env";
 import { Privilege } from "./privilegeController";
 
@@ -11,7 +12,7 @@ export class ServerAccessController {
     private static instance: ServerAccessController;
     private serverClosed = EnvManager.getServerClosed();
 
-    private constructor() {}
+    private constructor() { }
 
     public getServerClosed = () => this.serverClosed;
     public setServerClosed = (closed: boolean) => (this.serverClosed = closed);

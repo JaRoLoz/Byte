@@ -1,4 +1,4 @@
 export * from "./clothedPed";
-export * from "./playerPed";
+export * from "./ped";
 export * from "./parsedTattoos";
 export * from "./tattoos";

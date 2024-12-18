@@ -1,10 +1,10 @@
 import type { PlayerData, PlayerGang, PlayerJob } from "../shared/types/player";
 import { PlayerInventory } from "./playerInventory";
 import { getEventNames } from "../shared/classes/eventNameController";
-import { UUID } from "../shared/utils";
-import { Optional } from "../shared/classes";
-import { PlayerPed } from "./playerPed";
-import { PedData } from "../shared/types";
+import { UUID } from "../shared/utils/uuid";
+import { Optional } from "../shared/classes/optional";
+import { PlayerPed } from "./playerPed/ped";
+import { PedData } from "../shared/types/ped";
 import { IntRange } from "../shared/types/generic";
 
 const eventNames = getEventNames();

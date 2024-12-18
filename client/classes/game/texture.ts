@@ -1,5 +1,5 @@
-import { ByteGameObject } from "../../shared/classes";
-import { Pixel, RGBA, Base64Image, ImageFilePath } from "../../shared/types";
+import { ByteGameObject } from "../../shared/classes/byteObject";
+import { Pixel, RGBA, Base64Image, ImageFilePath } from "../../shared/types/texture";
 import { TextureDictionary } from "./textureDictionary";
 
 export class Texture extends ByteGameObject {

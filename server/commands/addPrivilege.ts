@@ -15,7 +15,7 @@ const addPrivilege: Command = {
             discord = `discord:${discord}`;
         }
 
-        //@ts-ignore
+        //@ts-expect-error - Element implicitly has an 'any' type
         if (Privilege[privilege] === undefined) {
             logger.error(`Invalid privilege level: ${privilege}`);
             return;

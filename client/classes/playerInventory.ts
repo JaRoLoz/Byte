@@ -1,6 +1,6 @@
-import { ConfigController } from "../shared/classes";
+import { ConfigController } from "../shared/classes/configController";
 import { getEventNames } from "../shared/classes/eventNameController";
-import { InventoryData } from "../shared/types";
+import { InventoryData } from "../shared/types/inventory";
 import { Inventory } from "./inventory";
 import { InventorySlot } from "./inventorySlot";
 

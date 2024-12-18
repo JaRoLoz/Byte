@@ -1,7 +1,8 @@
 import { Inventory } from "./inventory";
 import { InventorySlot } from "./inventorySlot";
 import type { SlotData, SlotInfo } from "../shared/types/inventory";
-import { ConfigController, Item } from "../shared/classes";
+import { ConfigController } from "../shared/classes/configController";
+import { Item } from "../shared/classes/item";
 import { getEventNames } from "../shared/classes/eventNameController";
 
 const eventNames = getEventNames();

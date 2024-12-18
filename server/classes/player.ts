@@ -4,11 +4,14 @@ import { Logger } from "../utils/logger";
 import { getEventNames } from "../shared/classes/eventNameController";
 import { User } from "./user";
 import { PlayerInventory } from "./playerInventory";
-import { ConfigController, EmptyOk, Err, Ok, Result, Timestamp } from "../shared/classes";
-import { DBPlayerInfo, PedData } from "../shared/types";
+import { EmptyOk, Err, Ok, Result } from "../shared/classes/result";
+import { ConfigController } from "../shared/classes/configController";
+import { Timestamp } from "../shared/classes/timestamp";
+import { DBPlayerInfo } from "../shared/types/db/player";
+import { PedData } from "../shared/types/ped";
 import { savePlayerToDB } from "../database/player";
 import { TransactionResult } from "../database/db";
-import { UUID } from "../shared/utils";
+import { UUID } from "../shared/utils/uuid";
 
 const logger = new Logger("Player");
 const eventNames = getEventNames();

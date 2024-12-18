@@ -1,3 +1,4 @@
+/* eslint import/no-internal-modules: off */
 import { RPCController } from "../controllers/rpcController";
 import { Logger } from "../utils/logger";
 import { EnvManager } from "../utils/env";

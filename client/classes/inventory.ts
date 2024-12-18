@@ -1,6 +1,6 @@
-import { Item } from "../shared/classes";
-import { IObjectifiable } from "../shared/interfaces";
-import { InventoryData } from "../shared/types";
+import { Item } from "../shared/classes/item";
+import { IObjectifiable } from "../shared/interfaces/IObjectifiable";
+import { InventoryData } from "../shared/types/inventory";
 import { InventorySlot } from "./inventorySlot";
 
 export abstract class Inventory implements IObjectifiable<InventoryData> {

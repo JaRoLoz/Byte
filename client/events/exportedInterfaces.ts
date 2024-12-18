@@ -1,1 +1,1 @@
-export { INetworkeable } from "../classes";
+export { INetworkeable } from "../classes/game/netEntity";

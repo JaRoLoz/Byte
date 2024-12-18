@@ -1,5 +1,7 @@
 import { ServerAccessController } from "../controllers/serverAccessController";
-import { getTranslator, Optional, Result } from "../shared/classes";
+import { Result } from "../shared/classes/result";
+import { Optional } from "../shared/classes/optional";
+import { getTranslator } from "../shared/classes/translator";
 import { Logger } from "../utils/logger";
 import discordDeferral from "./discordDeferral";
 import steamDeferral from "./steamDeferral";

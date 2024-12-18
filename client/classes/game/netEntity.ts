@@ -1,4 +1,5 @@
-import { ByteGameObject, Result } from "../../shared/classes";
+import { ByteGameObject } from "../../shared/classes/byteObject";
+import { Result } from "../../shared/classes/result";
 
 export interface INetworkeable {
     toNet(): CNetEntity;

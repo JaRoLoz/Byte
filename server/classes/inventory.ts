@@ -1,4 +1,5 @@
-import { ConfigController, Item } from "../shared/classes";
+import { ConfigController } from "../shared/classes/configController";
+import { Item } from "../shared/classes/item";
 import { InventorySlot } from "./inventorySlot";
 import type { IObjectifiable } from "../shared/interfaces/IObjectifiable";
 import type { InventoryData, SlotInfo } from "../shared/types/inventory";

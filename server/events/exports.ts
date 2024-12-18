@@ -1,3 +1,4 @@
+/* eslint import/no-internal-modules: off */
 import { Inventory } from "../classes/inventory";
 import { InventorySlot } from "../classes/inventorySlot";
 import { Player } from "../classes/player";

@@ -1,4 +1,5 @@
-import { EmptyOk, Err, Result, XMLSearchNode } from "../../shared/classes";
+import { EmptyOk, Err, Result } from "../../shared/classes/result";
+import { XMLSearchNode } from "../../shared/classes/xml";
 import {
     multiplayer_overlays_female,
     multiplayer_overlays_male,

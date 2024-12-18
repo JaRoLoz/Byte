@@ -1,4 +1,4 @@
-import { Err, Ok, Result } from "../shared/classes";
+import { Err, Ok, Result } from "../shared/classes/result";
 import { DB } from "./db";
 
 export type DBPrivilege = {

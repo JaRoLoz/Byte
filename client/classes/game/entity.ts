@@ -1,4 +1,4 @@
-import { Err, Ok, Result } from "../../shared/classes";
+import { Err, Ok, Result } from "../../shared/classes/result";
 import { IntRange } from "../../shared/types/generic";
 import { CModel } from "./model";
 import { CNetEntity, INetworkeable } from "./netEntity";

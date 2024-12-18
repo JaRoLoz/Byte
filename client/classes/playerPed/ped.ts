@@ -1,5 +1,5 @@
-import { Optional } from "../../shared/classes";
-import { CModel } from "../game";
+import { Optional } from "../../shared/classes/optional";
+import { CModel } from "../game/model";
 import { ClothedPed } from "./clothedPed";
 
 export class PlayerPed extends ClothedPed {

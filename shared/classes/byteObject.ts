@@ -3,8 +3,8 @@
  * Tries to replicate the behavior of Java's `Object` base class.
  */
 export abstract class ByteGameObject {
-    constructor() {}
-    
+    constructor() { }
+
     /**
      * Clones the object.
     */
@@ -35,7 +35,7 @@ export abstract class ByteGameObject {
      * @returns A string representation of the object.
      */
     public asString(): string {
-        return `ByteObject {}`;
+        return "ByteObject {}";
     }
     /**
      * @returns A JSON string representation of the object.
