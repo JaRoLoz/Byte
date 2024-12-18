@@ -12,5 +12,7 @@
 
     <eventName key="Client.Inventory.SetInventory">Byte:client:Inventory:SetInventory</eventName>
     <eventName key="Client.RPC.Callback">Byte:client:RPC:Callback</eventName>
+    <eventName key="Server.RPC.Callback">Byte:server:RPC:Callback</eventName>
+    <eventName key="Client.RPC.Call">Byte:client:RPC:Call</eventName>
     <eventName key="Server.RPC.Call">Byte:server:RPC:Call</eventName>
 </events>
