@@ -9,7 +9,7 @@ export class RPCController {
     private promises: Record<string, CfxPromise<unknown[]>> = {};
 
     private constructor() {
-        RegisterNetEvent(eventNames.get("Client.RPC.Callback"), (procuedure: string, args: any) => {
+        RegisterNetEvent(eventNames.get("Client.RPC.Callback"), (procuedure: string, args: Array<any>) => {
             if (!this.promises[procuedure]) return;
 
             const procedurePromise = this.promises[procuedure] as CfxPromise<any>;
@@ -24,13 +24,13 @@ export class RPCController {
      * @param args The arguments to pass to the server.
      * @returns A promise that resolves when the server responds.
      */
-    public call = <Args extends any[] = any>(procedure: string, args: any) => {
+    public call = <T extends any[] = any>(procedure: string, ...args: any[]): LuaMultiReturn<T> => {
         const procedurePromise = promise.new();
         this.promises[procedure] = procedurePromise;
 
         TriggerServerEvent(eventNames.get("Server.RPC.Call"), procedure, args);
 
-        return Citizen.Await<Args>(procedurePromise) as Args;
+        return $multi(...Citizen.Await<T>(procedurePromise));
     };
 
     /** @noSelf **/

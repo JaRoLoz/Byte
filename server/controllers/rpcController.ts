@@ -7,7 +7,7 @@ const eventNames = getEventNames();
  * @param src The player source that called the procedure.
  * @param cb The callback function to call when the procedure is done.
  */
-export type RPCCallback = (this: void, src: number, cb: (this: void, args: any) => void, args: any) => any;
+export type RPCCallback = (this: void, src: number, cb: (this: void, ...args: any[]) => void, ...args: any[]) => any;
 
 export class RPCController {
     /** @noSelf **/
@@ -15,17 +15,17 @@ export class RPCController {
     private callbacks: Record<string, RPCCallback> = {};
 
     private constructor() {
-        RegisterNetEvent(eventNames.get("Server.RPC.Call"), (procedure: string, args: any) => {
+        RegisterNetEvent(eventNames.get("Server.RPC.Call"), (procedure: string, args: Array<any>) => {
             const src = source;
             if (!this.callbacks[procedure]) return;
 
             const procedureCallback = this.callbacks[procedure];
             procedureCallback(
                 src,
-                (retVal: any) => {
-                    TriggerClientEvent(eventNames.get("Client.RPC.Callback"), src, procedure, retVal);
+                (...retVals: any[]) => {
+                    TriggerClientEvent(eventNames.get("Client.RPC.Callback"), src, procedure, retVals);
                 },
-                args
+                ...args
             );
         });
     }
